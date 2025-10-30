@@ -165,3 +165,22 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Failed to load navbar:", err);
         });
 });
+
+// console.log = function() {};   // disable logs
+// console.error = function() {}; // disable errors
+// console.warn = function() {};
+// window.apex = window.apex || {
+//     debug: function() {},
+//     message: function() {},
+//     widget: {},
+//     item: function() { return { getValue: () => null, setValue: () => {} }; },
+//     region: function() { return { refresh: () => {} }; }
+//   };
+
+  
+//   if (typeof apex !== "undefined") {
+//     var script = document.createElement('script');
+//     script.src = 'widget.interactiveReport.min.js';
+//     document.head.appendChild(script);
+//   }
+
