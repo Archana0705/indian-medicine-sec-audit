@@ -9,8 +9,8 @@
   <link rel="icon" href="assets/img/app-icon-32.png">
 
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
 
   <link rel="stylesheet" href="assets/css/Core.min.css" type="text/css">
   <link rel="stylesheet" href="assets/css/Theme-Standard.min.css" type="text/css">
@@ -447,6 +447,7 @@
   <script src="assets/js/encrypt_decrypt.js"></script>
   <script src="assets/js/singleFileUpload.js"></script>
   <script src="assets/js/globalHeader.js"></script>
+  <script src="assets/js/apiConfig.js"></script>
   <script src="assets/js/auth.js"></script>
 
 
@@ -492,7 +493,7 @@
 
         const mobnumber = document.getElementById('P9999_USERNAME')?.value?.trim();
         try {
-          await initializeUserSession(mobnumber); 
+          await initializeUserSession(mobnumber);
           sessionStorage.setItem('userMobileNumber', mobnumber);
 
           const role = sessionStorage.getItem('userRole') || '';
@@ -521,10 +522,10 @@
 
   <script>
     // Prevent navigating back into logged-in pages
-window.history.pushState(null, null, window.location.href);
-window.onpopstate = function () {
-  window.history.go(1);
-};
+    window.history.pushState(null, null, window.location.href);
+    window.onpopstate = function () {
+      window.history.go(1);
+    };
 
   </script>
 

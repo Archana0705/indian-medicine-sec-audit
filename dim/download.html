@@ -4,10 +4,10 @@
   <meta http-equiv="x-ua-compatible" content="IE=edge">
   <meta charset="utf-8">
   <title>Download despatched medicine</title>
-    <!-- Prevent browser from caching protected pages -->
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+  <!-- Prevent browser from caching protected pages -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <link rel="apple-touch-icon" href="../assets/img/app-icon-192.png">
   <link rel="icon" href="../assets/img/app-icon-32.png">
 
@@ -47,53 +47,54 @@
     .t-fht-tbody {
       overflow: auto;
     }
-  .dataTables_paginate {
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
-    gap: 5px;
-  }
 
-  .paginate_button {
-    background-color: #f2f2f2;
-    border: 1px solid #ccc;
-    padding: 6px 12px;
-    margin: 0 2px;
-    border-radius: 4px;
-    color: #333;
-    text-decoration: none;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.2s ease;
-  }
+    .dataTables_paginate {
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+      gap: 5px;
+    }
 
-  .paginate_button:hover:not(.disabled),
-  .paginate_button:focus {
-    background-color: #007bff;
-    color: white;
-  }
+    .paginate_button {
+      background-color: #f2f2f2;
+      border: 1px solid #ccc;
+      padding: 6px 12px;
+      margin: 0 2px;
+      border-radius: 4px;
+      color: #333;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.2s ease;
+    }
 
-  .paginate_button.current {
-    background-color: #007bff;
-    color: white;
-    font-weight: bold;
-  }
+    .paginate_button:hover:not(.disabled),
+    .paginate_button:focus {
+      background-color: #007bff;
+      color: white;
+    }
 
-  .paginate_button.disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
+    .paginate_button.current {
+      background-color: #007bff;
+      color: white;
+      font-weight: bold;
+    }
+
+    .paginate_button.disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
   </style>
-    <style type="text/css">
+  <style type="text/css">
     ul.headermenu {
-    padding: 10px 30px;
-    width: auto !important;
-    margin: 0;
-    white-space: nowrap;
-    left: -32px;
-    position: relative;
-}   
-</style>
+      padding: 10px 30px;
+      width: auto !important;
+      margin: 0;
+      white-space: nowrap;
+      left: -32px;
+      position: relative;
+    }
+  </style>
 </head>
 
 <body
@@ -480,7 +481,7 @@
 
   <!-- session -->
   <script src="../assets/js/session-guard.js"></script>
-    <script src="../assets/js/session.js"></script>
+  <script src="../assets/js/session.js"></script>
 
   <!-- jQuery -->
   <script src="../assets/js/jquery.latest.min.js"></script>
@@ -507,15 +508,16 @@
   <script src="../assets/js/encrypt_decrypt.js"></script>
   <script src="../assets/js/singleFileUpload.js"></script>
   <script src="../assets/js/globalHeader.js"></script>
+  <script src="../assets/js/apiConfig.js"></script>
   <script src="../assets/js/validation.js"></script>
   <script>
-    $(document).ready(function () { 
+    $(document).ready(function () {
       var userName = sessionStorage.getItem("userName") || "Guest";
       $('#username .t-Button-label').text(userName);
     });
   </script>
   <script>
-    const apiUrl = 'https://tngis.tnega.org/medical_indent_api/v1/commonfunction';
+    const apiUrl = `${BASE_API_URL}/commonfunction`;
     const mobnumber = sessionStorage.getItem('userMobileNumber') || "";
 
     function fetchAndPopulateDropdown({ payload, dropdownId, placeholder }) {

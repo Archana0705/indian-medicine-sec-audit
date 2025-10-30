@@ -5,9 +5,9 @@
   <meta charset="utf-8">
   <title>AMO Approved report - Factory</title>
   <!-- Prevent browser from caching protected pages -->
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <link rel="apple-touch-icon" href="../assets/img/app-icon-192.png">
   <link rel="icon" href="../assets/img/app-icon-32.png">
 
@@ -292,9 +292,9 @@
       value="/uN6FYnGfFhw0t9O1pK7FnnCtlkLbWZYeUU9kKy5klaMeppW0UypRW6aKapYnS0E4WJ-BM7tUTFudGGXAHWVhYw">
   </form>
 
-    <!-- session -->
+  <!-- session -->
   <script src="../assets/js/session-guard.js"></script>
-    <script src="../assets/js/session.js"></script>
+  <script src="../assets/js/session.js"></script>
 
   <!-- jQuery -->
   <script src="../assets/js/jquery.latest.min.js"></script>
@@ -320,6 +320,7 @@
   <script src="../assets/js/encrypt_decrypt.js"></script>
   <script src="../assets/js/singleFileUpload.js"></script>
   <script src="../assets/js/globalHeader.js"></script>
+  <script src="../assets/js/apiConfig.js"></script>
   <script src="../assets/js/validateField.js"></script>
 
   <script>
@@ -328,7 +329,7 @@
     $(document).ready(function () {
       let uploadFile = null;
       let uploadPayload = null;
-      const apiUrl = 'https://tngis.tnega.org/medical_indent_api/v1/commonfunction';
+      const apiUrl = `${BASE_API_URL}/commonfunction`;
       // const userId = localStorage.getItem('userId');
       // const secretKey = 'V7gN4dY8pT2xB3kRz';
       const district = localStorage.getItem('userDistrict');

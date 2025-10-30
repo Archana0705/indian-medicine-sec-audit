@@ -4,10 +4,10 @@
   <meta http-equiv="x-ua-compatible" content="IE=edge">
   <meta charset="utf-8">
   <title>INDIAN MEDICINE - MANAGEMENT</title>
-    <!-- Prevent browser from caching protected pages -->
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+  <!-- Prevent browser from caching protected pages -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <link rel="apple-touch-icon" href="../assets/img/app-icon-192.png">
   <link rel="icon" href="../assets/img/app-icon-32.png">
   <link rel="stylesheet" href="../assets/css/Core.min.css" type="text/css">
@@ -30,9 +30,9 @@
 
   <!-- session -->
   <script src="../assets/js/session-guard.js"></script>
-    <script src="../assets/js/session.js"></script>
+  <script src="../assets/js/session.js"></script>
 
-    
+
   <style type="text/css">
     .a-Menu--top.submenu {
       position: absolute;
@@ -74,16 +74,16 @@
       color: inherit;
     }
   </style>
-   <style type="text/css">
+  <style type="text/css">
     ul.headermenu {
-    padding: 10px 30px;
-    width: auto !important;
-    margin: 0;
-    white-space: nowrap;
-    left: -32px;
-    position: relative;
-}   
-</style>
+      padding: 10px 30px;
+      width: auto !important;
+      margin: 0;
+      white-space: nowrap;
+      left: -32px;
+      position: relative;
+    }
+  </style>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="-1">
@@ -330,7 +330,7 @@
     <div class="t-Body-inlineDialogs" id="t_Body_inlineDialogs"></div>
   </form>
 
-    
+
 
   <!-- jQuery -->
   <script src="../assets/js/jquery.latest.min.js"></script>
@@ -356,15 +356,16 @@
   <script src="../assets/js/encrypt_decrypt.js"></script>
   <script src="../assets/js/singleFileUpload.js"></script>
   <script src="../assets/js/globalHeader.js"></script>
+  <script src="../assets/js/apiConfig.js"></script>
   <script src="../assets/js/validateField.js"></script>
   <script src="../assets/js/loadAccessibilityToolbar.js"></script>
   <script>
     let dataTableRef;
 
-    $(document).ready(function () {       
+    $(document).ready(function () {
       let uploadFile = null;
       let uploadPayload = null;
-      const apiUrl = 'https://tngis.tnega.org/medical_indent_api/v1/commonfunction';
+      const apiUrl = `${BASE_API_URL}/commonfunction`;
       // const userId = sessionStorage.getItem('userId');
       // const secretKey = 'V7gN4dY8pT2xB3kRz';
       const district = sessionStorage.getItem('userDistrict');

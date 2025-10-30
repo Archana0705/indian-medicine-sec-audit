@@ -5,9 +5,9 @@
   <meta charset="utf-8">
   <title>District Financial year only</title>
   <!-- Prevent browser from caching protected pages -->
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
 
   <link rel="apple-touch-icon" href="../assets/img/app-icon-192.png">
   <link rel="icon" href="../assets/img/app-icon-32.png">
@@ -27,16 +27,16 @@
   <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <!-- session toast  -->
   <link rel="stylesheet" href="../assets/css/sessionToast.css" type="text/css">
-    <style type="text/css">
+  <style type="text/css">
     ul.headermenu {
-    padding: 10px 30px;
-    width: auto !important;
-    margin: 0;
-    white-space: nowrap;
-    left: -32px;
-    position: relative;
-}   
-</style>
+      padding: 10px 30px;
+      width: auto !important;
+      margin: 0;
+      white-space: nowrap;
+      left: -32px;
+      position: relative;
+    }
+  </style>
 
   <style type="text/css">
     .a-Menu--top.submenu {
@@ -349,7 +349,8 @@
                                                                   class="a-Icon icon-irr-pivot"></span></span><span
                                                                 class="a-IRR-reportSummary-value">Edit Pivot</span></a>
                                                           </li>
-                                             d           </ul>
+                                                          d
+                                                        </ul>
                                             </div>
                                           </div>
                                           <div id="R311536859561944772718_data_panel" class="a-IRR-reportView">
@@ -419,9 +420,9 @@
       value="/yZvVW7aDAxN3dl6wwwL4ZSxqay9d1b8bBhOv_eCMQeVk_9CPkybpknOJrb9SDFYft1Doqgsa9ueOLc__aB_mlw">
   </form>
 
-   <!-- session -->
-   <script src="../assets/js/session-guard.js"></script>
-    <script src="../assets/js/session.js"></script>
+  <!-- session -->
+  <script src="../assets/js/session-guard.js"></script>
+  <script src="../assets/js/session.js"></script>
 
   <!-- jQuery -->
   <script src="../assets/js/jquery.latest.min.js"></script>
@@ -447,15 +448,16 @@
   <script src="../assets/js/encrypt_decrypt.js"></script>
   <script src="../assets/js/singleFileUpload.js"></script>
   <script src="../assets/js/globalHeader.js"></script>
+  <script src="../assets/js/apiConfig.js"></script>
   <script src="../assets/js/validateField.js"></script>
 
   <script>
     let dataTableRef;
 
-    $(document).ready(function () {      
+    $(document).ready(function () {
       let uploadFile = null;
       let uploadPayload = null;
-      const apiUrl = 'https://tngis.tnega.org/medical_indent_api/v1/commonfunction';
+      const apiUrl = `${BASE_API_URL}/commonfunction`;
       // const userId = sessionStorage.getItem('userId');
       // const secretKey = 'V7gN4dY8pT2xB3kRz';
       const district = sessionStorage.getItem('userDistrict');

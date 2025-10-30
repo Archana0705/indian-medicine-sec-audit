@@ -976,6 +976,7 @@
     <script src="../assets/js/encrypt_decrypt.js"></script>
     <script src="../assets/js/singleFileUpload.js"></script>
     <script src="../assets/js/globalHeader.js"></script>
+<script src="../assets/js/apiConfig.js"></script>
     <script src="../assets/js/validation.js"></script>
     <!-- <script src="/i/themes/theme_42/23.1/js/theme42.min.js?v=23.1.0"></script>
       <script src="r/dimdev/117/files/static/v194/aos.min.js"></script>
@@ -1006,7 +1007,7 @@
         $("#P1_DISTRICT_DISPLAY").text(userDistrict);
       });
       const apiUrl =
-        "https://tngis.tnega.org/medical_indent_api/v1/commonfunction";
+        `${BASE_API_URL}/commonfunction`;
 
       function getPayload() {
         return {

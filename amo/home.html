@@ -5,10 +5,10 @@
   <meta charset="utf-8">
   <title>INDIAN MEDICINE - MANAGEMENT</title>
 
-    <!-- Prevent browser from caching protected pages -->
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+  <!-- Prevent browser from caching protected pages -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
 
   <link rel="apple-touch-icon" href="../assets/img/app-icon-192.png">
   <link rel="icon" href="../assets/img/app-icon-32.png">
@@ -42,14 +42,14 @@
   </style>
   <style type="text/css">
     ul.headermenu {
-    padding: 10px 30px;
-    width: auto !important;
-    margin: 0;
-    white-space: nowrap;
-    left: -32px;
-    position: relative;
-}   
-</style>
+      padding: 10px 30px;
+      width: auto !important;
+      margin: 0;
+      white-space: nowrap;
+      left: -32px;
+      position: relative;
+    }
+  </style>
 </head>
 
 <body
@@ -490,12 +490,12 @@
       value="UDFfSUQ6UDFfTkFNRV9PRl9USEVfSU5ERU5USU5HX09GRklDRVI6UDFfREVTSUdO.,QVRJT05fT0ZfT0ZGSUNFUjpQMV9TWVNURU06UDFfSU5TVElUVVRJT05fVFlQRTpQ.,MV9OQU1FX09GX1RIRV9JTlNUSVRVVElPTjpQMV9ESVNUUklDVA/13_v3B4bU1FxL64VlqhmFRTueVdI9fXX2wdlOsm4gjglUUDYSlIWDVdX9DYRqqxVpaNpE0nHUGzuw7xaGGO9kQ">
   </form>
 
-   <!-- session -->
-   <script src="../assets/js/session-guard.js"></script>
+  <!-- session -->
+  <script src="../assets/js/session-guard.js"></script>
 
-    <script src="../assets/js/session.js"></script>
+  <script src="../assets/js/session.js"></script>
 
-  <!-- jQuery --> 
+  <!-- jQuery -->
   <script src="../assets/js/jquery.latest.min.js"></script>
   <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -519,15 +519,16 @@
   <script src="../assets/js/encrypt_decrypt.js"></script>
   <script src="../assets/js/singleFileUpload.js"></script>
   <script src="../assets/js/globalHeader.js"></script>
+  <script src="../assets/js/apiConfig.js"></script>
   <script src="../assets/js/validateField.js"></script>
 
   <script>
     let dataTableRef;
 
-    $(document).ready(function () { 
+    $(document).ready(function () {
       let uploadFile = null;
       let uploadPayload = null;
-      const apiUrl = 'https://tngis.tnega.org/medical_indent_api/v1/commonfunction';
+      const apiUrl = `${BASE_API_URL}/commonfunction`;
       // const userId = sessionStorage.getItem('userId');
       // const secretKey = 'V7gN4dY8pT2xB3kRz';
       // const district = sessionStorage.getItem('userDistrict');

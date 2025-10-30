@@ -4,10 +4,10 @@
   <meta http-equiv="x-ua-compatible" content="IE=edge">
   <meta charset="utf-8">
   <title>Medicine Details</title>
-    <!-- Prevent browser from caching protected pages -->
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+  <!-- Prevent browser from caching protected pages -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <link rel="apple-touch-icon" href="../assets/img/app-icon-192.png">
   <link rel="icon" href="../assets/img/app-icon-32.png">
 
@@ -66,16 +66,16 @@
       opacity: 0.5;
     }
   </style>
-   <style type="text/css">
+  <style type="text/css">
     ul.headermenu {
-    padding: 10px 30px;
-    width: auto !important;
-    margin: 0;
-    white-space: nowrap;
-    left: -32px;
-    position: relative;
-}   
-</style>
+      padding: 10px 30px;
+      width: auto !important;
+      margin: 0;
+      white-space: nowrap;
+      left: -32px;
+      position: relative;
+    }
+  </style>
 </head>
 
 <body
@@ -405,7 +405,7 @@
 
   <!-- session -->
   <script src="../assets/js/session-guard.js"></script>
-    <script src="../assets/js/session.js"></script>
+  <script src="../assets/js/session.js"></script>
 
 
   <script src="../assets/js/desktop_all.min.js"></script>
@@ -435,16 +435,17 @@
   <script src="../assets/js/encrypt_decrypt.js"></script>
   <script src="../assets/js/singleFileUpload.js"></script>
   <script src="../assets/js/globalHeader.js"></script>
+  <script src="../assets/js/apiConfig.js"></script>
   <script src="../assets/js/validation.js"></script>
   <script>
-    $(document).ready(function () { 
+    $(document).ready(function () {
       var userName = sessionStorage.getItem("userName") || "Guest";
       $('#username .t-Button-label').text(userName);
     });
   </script>
   <script>
 
-    const apiUrl = 'https://tngis.tnega.org/medical_indent_api/v1/commonfunction';
+    const apiUrl = `${BASE_API_URL}/commonfunction`;
     const mobnumber = sessionStorage.getItem('userMobileNumber') || "";
 
     function fetchAndPopulateDropdown({ payload, dropdownId, placeholder }) {
@@ -537,71 +538,71 @@
       $('#P39_FINANCIAL_YEAR').val("");
     });
     let originalThead = "";
-let originalTbody = "";
+    let originalTbody = "";
 
-document.getElementById("pivotBtn").addEventListener("click", function () {
-  const table = document.getElementById("viewIndentDistrictTable");
-  const dt = $('#viewIndentDistrictTable').DataTable(); // DataTable instance
-  const rows = dt.rows().data().toArray(); // All data across all pages
+    document.getElementById("pivotBtn").addEventListener("click", function () {
+      const table = document.getElementById("viewIndentDistrictTable");
+      const dt = $('#viewIndentDistrictTable').DataTable(); // DataTable instance
+      const rows = dt.rows().data().toArray(); // All data across all pages
 
-  // Save original only once
-  if (!originalThead && !originalTbody) {
-    originalThead = table.querySelector("thead").innerHTML;
-    originalTbody = table.querySelector("tbody").innerHTML;
-  }
+      // Save original only once
+      if (!originalThead && !originalTbody) {
+        originalThead = table.querySelector("thead").innerHTML;
+        originalTbody = table.querySelector("tbody").innerHTML;
+      }
 
-  const pivotMap = new Map();
-  const totalMap = new Map();
-  const institutionSet = new Set();
+      const pivotMap = new Map();
+      const totalMap = new Map();
+      const institutionSet = new Set();
 
-  rows.forEach(cells => {
-    const med = cells[0].trim();
-    const pack = cells[1].trim();
-    const institution = cells[2].trim();
-    const qty = parseInt(cells[3]) || 0;
+      rows.forEach(cells => {
+        const med = cells[0].trim();
+        const pack = cells[1].trim();
+        const institution = cells[2].trim();
+        const qty = parseInt(cells[3]) || 0;
 
-    const key = `${med}|${pack}`;
-    if (!pivotMap.has(key)) {
-      pivotMap.set(key, {});
-      totalMap.set(key, 0);
-    }
+        const key = `${med}|${pack}`;
+        if (!pivotMap.has(key)) {
+          pivotMap.set(key, {});
+          totalMap.set(key, 0);
+        }
 
-    pivotMap.get(key)[institution] = (pivotMap.get(key)[institution] || 0) + qty;
-    totalMap.set(key, totalMap.get(key) + qty);
+        pivotMap.get(key)[institution] = (pivotMap.get(key)[institution] || 0) + qty;
+        totalMap.set(key, totalMap.get(key) + qty);
 
-    institutionSet.add(institution);
-  });
+        institutionSet.add(institution);
+      });
 
-  const institutions = Array.from(institutionSet).sort();
+      const institutions = Array.from(institutionSet).sort();
 
-  let theadHTML = "<tr><th></th><th></th><th></th>";
-  institutions.forEach(inst => {
-    theadHTML += `<th>${inst}</th>`;
-  });
-  theadHTML += "</tr><tr>";
-  theadHTML += "<th>Medicine Name</th><th>Packing Size</th><th>Total Quantity</th>";
-  institutions.forEach(() => {
-    theadHTML += `<th>Sum Qty</th>`;
-  });
-  theadHTML += "</tr>";
+      let theadHTML = "<tr><th></th><th></th><th></th>";
+      institutions.forEach(inst => {
+        theadHTML += `<th>${inst}</th>`;
+      });
+      theadHTML += "</tr><tr>";
+      theadHTML += "<th>Medicine Name</th><th>Packing Size</th><th>Total Quantity</th>";
+      institutions.forEach(() => {
+        theadHTML += `<th>Sum Qty</th>`;
+      });
+      theadHTML += "</tr>";
 
-  let tbodyHTML = "";
-  pivotMap.forEach((instData, key) => {
-    const [med, pack] = key.split("|");
-    const totalQty = totalMap.get(key);
-    tbodyHTML += `<tr><td>${med}</td><td>${pack}</td><td>${totalQty}</td>`;
-    institutions.forEach(inst => {
-      tbodyHTML += `<td>${instData[inst] || ""}</td>`;
+      let tbodyHTML = "";
+      pivotMap.forEach((instData, key) => {
+        const [med, pack] = key.split("|");
+        const totalQty = totalMap.get(key);
+        tbodyHTML += `<tr><td>${med}</td><td>${pack}</td><td>${totalQty}</td>`;
+        institutions.forEach(inst => {
+          tbodyHTML += `<td>${instData[inst] || ""}</td>`;
+        });
+        tbodyHTML += "</tr>";
+      });
+
+      // Destroy and recreate DataTable to reflect pivoted content
+      dt.destroy();
+      table.querySelector("thead").innerHTML = theadHTML;
+      table.querySelector("tbody").innerHTML = tbodyHTML;
+      $('#viewIndentDistrictTable').DataTable(); // Reinitialize
     });
-    tbodyHTML += "</tr>";
-  });
-
-  // Destroy and recreate DataTable to reflect pivoted content
-  dt.destroy();
-  table.querySelector("thead").innerHTML = theadHTML;
-  table.querySelector("tbody").innerHTML = tbodyHTML;
-  $('#viewIndentDistrictTable').DataTable(); // Reinitialize
-});
 
 
     document.getElementById("removePivotBtn").addEventListener("click", function () {

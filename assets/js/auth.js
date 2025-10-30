@@ -40,7 +40,7 @@ async function initializeUserSession(mobnumber) {
             }
         };
 
-        const apiUrl = 'https://tngis.tnega.org/medical_indent_api/v1/commonfunction';
+        const apiUrl = `${BASE_API_URL}/commonfunction`;
 
         $.ajax({
             url: apiUrl,
@@ -80,7 +80,7 @@ async function initializeUserSession(mobnumber) {
                         // localStorage.setItem('userInstitutionName', decrypted.name_of_the_institution || '');
                         // localStorage.setItem('userSystem', decrypted.system || '');
                         // localStorage.setItem('userDesignation', decrypted.designation || '');
- 
+
 
                         sessionStorage.setItem('userRole', decrypted.login_type || '');
                         sessionStorage.setItem('userDistrict', decrypted.district);
@@ -122,4 +122,3 @@ async function initializeUserSession(mobnumber) {
 }
 
 window.initializeUserSession = initializeUserSession;
-``

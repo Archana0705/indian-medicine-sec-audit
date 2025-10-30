@@ -8,10 +8,10 @@
 
   <link rel="apple-touch-icon" href="../assets/img/app-icon-192.png">
   <link rel="icon" href="../assets/img/app-icon-32.png">
-    <!-- Prevent browser from caching protected pages -->
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+  <!-- Prevent browser from caching protected pages -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
 
   <link rel="stylesheet" href="../assets/css/Core.min.css" type="text/css">
   <link rel="stylesheet" href="../assets/css/Theme-Standard.min.css" type="text/css">
@@ -58,14 +58,14 @@
   </style>
   <style type="text/css">
     ul.headermenu {
-    padding: 10px 30px;
-    width: auto !important;
-    margin: 0;
-    white-space: nowrap;
-    left: -32px;
-    position: relative;
-}   
-</style>
+      padding: 10px 30px;
+      width: auto !important;
+      margin: 0;
+      white-space: nowrap;
+      left: -32px;
+      position: relative;
+    }
+  </style>
 </head>
 
 <body
@@ -299,7 +299,7 @@
   <!-- session -->
   <script src="../assets/js/session-guard.js"></script>
 
-    <script src="../assets/js/session.js"></script>
+  <script src="../assets/js/session.js"></script>
 
   <!-- jQuery -->
   <script src="../assets/js/jquery.latest.min.js"></script>
@@ -325,6 +325,7 @@
   <script src="../assets/js/encrypt_decrypt.js"></script>
   <script src="../assets/js/singleFileUpload.js"></script>
   <script src="../assets/js/globalHeader.js"></script>
+  <script src="../assets/js/apiConfig.js"></script>
   <script src="../assets/js/validateField.js"></script>
 
   <script>
@@ -333,7 +334,7 @@
     $(document).ready(function () {
       let uploadFile = null;
       let uploadPayload = null;
-      const apiUrl = 'https://tngis.tnega.org/medical_indent_api/v1/commonfunction';
+      const apiUrl = `${BASE_API_URL}/commonfunction`;
       // const userId = localStorage.getItem('userId');
       // const secretKey = 'V7gN4dY8pT2xB3kRz';
       const district = localStorage.getItem('userDistrict');
