@@ -21,8 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 ],
                 admin: [
                     { name: 'Home', href: '../admin/home.html' },
-                    { name: 'Medicine Details', href: '../admin/medicine-details.html' },
-                    { name: 'User Details', href: '../admin/user-details.html' }
+                    // { name: 'Medicine Details', href: '../admin/medicine-details.html' },
+                    // { name: 'User Details', href: '../admin/user-details.html' }
                 ],
                 commissioner: [
                     { name: 'Dashboard', href: '../commissioner/overall-dashboard.html' },
