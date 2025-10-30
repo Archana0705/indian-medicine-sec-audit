@@ -486,30 +486,45 @@
       // const mobnumber = sessionStorage.getItem('userMob');
 
 
-      const district = sessionStorage.getItem('userDistrict');
-      const nameOfTheInstitution = sessionStorage.getItem('userInstitutionName');
-      const system = sessionStorage.getItem('userSystem');
+
+      const session = window.getDecryptedUserSession();
+      if (!session) {
+        alert("Session expired or unauthorized access. Please log in again.");
+        sessionStorage.clear();
+        window.location.replace("../index.html");
+        return;
+      }
+
+
+      const {
+        name: userName = "",
+        district: userDistrict = "",
+        designation: userDesignation = "",
+        system: userSystem = "",
+        institutionName: userInstitutionName = "",
+        mobnumber: mobnumber = ""
+      } = session;
 
       // Populate district dropdown
-      if (district) {
+      if (userDistrict) {
         const districtSelect = $('#P8_NAME_OF_THE_DISTRICT');
-        districtSelect.append(`<option value="${district}" selected>${district}</option>`);
+        districtSelect.append(`<option value="${userDistrict}" selected>${userDistrict}</option>`);
       } else {
         console.warn('District not found in sessionStorage');
       }
 
       // Populate institution dropdown
-      if (nameOfTheInstitution) {
+      if (userInstitutionName) {
         const nameOfTheInstitutionSelect = $('#P12_INSTITUTION_NAME');
-        nameOfTheInstitutionSelect.append(`<option value="${nameOfTheInstitution}" selected>${nameOfTheInstitution}</option>`);
+        nameOfTheInstitutionSelect.append(`<option value="${userInstitutionName}" selected>${userInstitutionName}</option>`);
       } else {
         console.warn('Institution not found in sessionStorage');
       }
 
       // Populate system dropdown
-      if (system) {
+      if (userSystem) {
         const systemSelect = $('#P12_SYSTEM');
-        systemSelect.append(`<option value="${system}" selected>${system}</option>`);
+        systemSelect.append(`<option value="${userSystem}" selected>${userSystem}</option>`);
       } else {
         console.warn('System not found in sessionStorage');
       }

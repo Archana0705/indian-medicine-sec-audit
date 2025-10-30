@@ -443,10 +443,26 @@
       let uploadFile = null;
       let uploadPayload = null;
       const apiUrl = `${BASE_API_URL}/commonfunction`;
-      const mobnumber = sessionStorage.getItem('userMobileNumber') || '9941256207';
-      const district = sessionStorage.getItem('userDistrict');
-      const nameOfTheInstitution = sessionStorage.getItem('userInstitutionName');
-      const system = sessionStorage.getItem('userSystem');
+      // const mobnumber = sessionStorage.getItem('userMobileNumber') || '9941256207';
+      // const district = sessionStorage.getItem('userDistrict');
+      // const nameOfTheInstitution = sessionStorage.getItem('userInstitutionName');
+      // const system = sessionStorage.getItem('userSystem');
+
+      const session = window.getDecryptedUserSession();
+      if (!session) {
+        alert("Session expired or unauthorized access. Please log in again.");
+        sessionStorage.clear();
+        window.location.replace("../index.html");
+        return;
+      }
+      const {
+        name: userName = "",
+        district: userDistrict = "",
+        designation: userDesignation = "",
+        system: userSystem = "",
+        institutionName: userInstitutionName = "",
+        mobnumber: mobnumber = ""
+      } = session;
 
       // 🟦 Open modal and populate dropdowns
       $('#openPatientLogBtn').off('click').on('click', function (event) {
@@ -484,20 +500,20 @@
         }
 
         // 🟩 Pre-fill Institution
-        if (nameOfTheInstitution) {
+        if (userInstitutionName) {
           const nameOfTheInstitutionSelect = $('#P10_INSTITUTION_NAME');
-          nameOfTheInstitutionSelect.empty().append(`<option value="${nameOfTheInstitution}" selected>${nameOfTheInstitution}</option>`);
+          nameOfTheInstitutionSelect.empty().append(`<option value="${userInstitutionName}" selected>${userInstitutionName}</option>`);
         } else {
           console.warn('Institution not found in sessionStorage');
         }
 
         // 🟦 Fetch medicine list based on institution
-        if (nameOfTheInstitution) {
+        if (userInstitutionName) {
           fetchAndPopulateDropdown({
             payload: {
               action: "function_call",
               function_name: "im_medicine_name_fn",
-              params: { institution_name: nameOfTheInstitution }
+              params: { institution_name: userInstitutionName }
             },
             dropdownId: "P10_MEDICINE_NAME",
             placeholder: "--Select Medicine Name--"

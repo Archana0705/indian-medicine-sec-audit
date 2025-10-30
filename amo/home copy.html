@@ -491,7 +491,9 @@
   </form>
 
   <!-- session -->
+  <script src="../assets/js/session-guard.js"></script>
 
+  <script src="../assets/js/session.js"></script>
 
   <!-- jQuery -->
   <script src="../assets/js/jquery.latest.min.js"></script>
@@ -516,22 +518,12 @@
   <script src="../assets/js/global.js"></script>
   <script src="../assets/js/encrypt_decrypt.js"></script>
   <script src="../assets/js/singleFileUpload.js"></script>
-  <!-- <script src="../assets/js/auth.js"></script>
-
-  <script src="../assets/js/globalHeader.js"></script>
-  <script src="../assets/js/apiConfig.js"></script>
-  <script src="../assets/js/session-guard.js"></script>
-
-  <script src="../assets/js/session.js"></script> -->
-
-
   <script src="../assets/js/auth.js"></script>
+
   <script src="../assets/js/globalHeader.js"></script>
   <script src="../assets/js/apiConfig.js"></script>
-  <script src="../assets/js/session-guard.js"></script>
-  <script src="../assets/js/session.js"></script>
 
-  <!-- <script>
+  <script>
     let dataTableRef;
 
     $(document).ready(function () {
@@ -1035,231 +1027,7 @@
       //   });
       // });
     });
-  </script> -->
-
-  <script>
-    $(document).ready(function () {
-      const apiUrl = `${BASE_API_URL}/commonfunction`;
-      let uploadFile = null;
-
-      // ================== SESSION EXTRACTION ==================
-      const session = window.getDecryptedUserSession();
-      if (!session) {
-        alert("Session expired or unauthorized access. Please log in again.");
-        sessionStorage.clear();
-        window.location.replace("../index.html");
-        return;
-      }
-      const {
-        name: userName = "",
-        district: userDistrict = "",
-        designation: userDesignation = "",
-        system: userSystem = "",
-        institutionName: userInstitutionName = "",
-        mobnumber: userId = ""
-      } = session;
-
-      // ================== BIND USER INFO TO HEADER ==================
-      $("#P1_NAME_OF_THE_INDENTING_OFFICER_DISPLAY").text(userName);
-      $("#P1_DESIGNATION_OF_OFFICER_DISPLAY").text(userDesignation);
-      $("#P1_SYSTEM_DISPLAY").text(userSystem);
-      $("#P1_NAME_OF_THE_INSTITUTION_DISPLAY").text(userInstitutionName);
-      $("#P1_DISTRICT_DISPLAY").text(userDistrict);
-
-      // ================== OPEN PATIENT LOG MODAL ==================
-      $("#openPatientLogBtn").off("click").on("click", function (event) {
-        event.preventDefault();
-
-        const totalCalls = 4;
-        let completedCalls = 0;
-
-        function fetchAndPopulateDropdown({ payload, dropdownId, placeholder }) {
-          $.ajax({
-            url: apiUrl,
-            method: "POST",
-            headers: { "X-APP-Key": "edm", "X-APP-Name": "edm" },
-            data: { data: encryptData(payload) },
-            dataType: "json",
-            success(response) {
-              const decrypted = decryptData(response.data);
-              console.log(`Decrypted Data for ${payload.function_name}:`, decrypted);
-
-              const $dropdown = $(`#${dropdownId}`);
-              $dropdown.empty().append(`<option value="">${placeholder}</option>`);
-
-              decrypted.forEach((item) => {
-                const value =
-                  item.district ||
-                  item.im_institution_name_fn ||
-                  item.disease ||
-                  item.gender ||
-                  item.p_institude;
-                $dropdown.append(`<option value="${value}">${value}</option>`);
-              });
-            },
-            error(xhr, status, error) {
-              console.error(`${payload.function_name} API Error:`, error);
-            },
-            complete() {
-              completedCalls++;
-              if (completedCalls === totalCalls) {
-                const modalInstance = bootstrap.Modal.getOrCreateInstance(
-                  document.getElementById("patientLogModal")
-                );
-                modalInstance.show();
-              }
-            },
-          });
-        }
-
-        // 🚀 Make API calls
-        fetchAndPopulateDropdown({
-          payload: {
-            action: "function_call",
-            function_name: "im_own_district_fn",
-            params: { mobnumber: userId },
-          },
-          dropdownId: "P2_DISTRICT",
-          placeholder: "--Select District--",
-        });
-
-        fetchAndPopulateDropdown({
-          payload: {
-            action: "function_call",
-            function_name: "im_institution_name_fn",
-            params: { mobnumber: userId },
-          },
-          dropdownId: "P2_NAME_OF_THE_INSTITUTION",
-          placeholder: "--Select Institution--",
-        });
-
-        fetchAndPopulateDropdown({
-          payload: {
-            action: "function_call",
-            function_name: "im_patient_disease_fn",
-            params: { mobnumber: userId },
-          },
-          dropdownId: "P2_PATIENT_DISEASE",
-          placeholder: "--Select Patient Disease--",
-        });
-
-        fetchAndPopulateDropdown({
-          payload: {
-            action: "function_call",
-            function_name: "im_gender_fn",
-            params: {},
-          },
-          dropdownId: "P2_PATIENT_GENDER",
-          placeholder: "--Select Gender--",
-        });
-
-        // Dynamic medicine dropdown based on institution
-        $("#P2_NAME_OF_THE_INSTITUTION")
-          .off("change")
-          .on("change", function () {
-            const selectedInstitution = $(this).val();
-
-            if (selectedInstitution) {
-              fetchAndPopulateDropdown({
-                payload: {
-                  action: "function_call",
-                  function_name: "im_medicine_name_fn",
-                  params: { institution_name: selectedInstitution },
-                },
-                dropdownId: "P2_MEDICINE_NAME",
-                placeholder: "--Select Medicine--",
-              });
-            } else {
-              $("#P2_MEDICINE_NAME")
-                .empty()
-                .append('<option value="">--Select Medicine--</option>');
-            }
-          });
-      });
-
-      // ================== SUBMIT BUTTON ==================
-      $("#submitBtn").on("click", async function (event) {
-        event.preventDefault();
-        $(".field-error").remove();
-
-        const district = window.sanitizeInput($("#P2_DISTRICT").val()?.trim());
-        const nameOfTheInstitution = window.sanitizeInput($("#P2_NAME_OF_THE_INSTITUTION").val()?.trim());
-        const patientName = window.sanitizeInput($("#P2_PATIENT_NAME").val()?.trim());
-        const diseaseName = window.sanitizeInput($("#P2_PATIENT_DISEASE").val()?.trim());
-        const mobileNumber = window.sanitizeInput($("#P2_MOBILE_NUMBER").val()?.trim());
-        const aadharNumber = window.sanitizeInput($("#P2_AADHAAR_NUMBER").val()?.trim());
-        const patientGender = window.sanitizeInput($("#P2_PATIENT_GENDER").val());
-        const medicineName = window.sanitizeInput($("#P2_MEDICINE_NAME").val()?.trim());
-        const medicineQuantity = window.sanitizeInput($("#P2_MEDICINE_QUANTITY").val()?.trim());
-
-        function showError(selector, message) {
-          $(selector).after(`<div class="field-error" style="color:red;font-size:12px;">${message}</div>`);
-        }
-
-        let isValid = true;
-
-        if (!district) showError("#P2_DISTRICT", "District is required."), (isValid = false);
-        if (!nameOfTheInstitution) showError("#P2_NAME_OF_THE_INSTITUTION", "Institution name is required."), (isValid = false);
-        if (!diseaseName) showError("#P2_PATIENT_DISEASE", "Disease name is required."), (isValid = false);
-        if (!patientName) showError("#P2_PATIENT_NAME", "Patient name is required."), (isValid = false);
-        if (!mobileNumber || !/^\d{10}$/.test(mobileNumber))
-          showError("#P2_MOBILE_NUMBER", "Valid 10-digit mobile number is required."), (isValid = false);
-
-        const aadhaarRegex = /^\d{12}$/;
-        if (!aadharNumber)
-          showError("#P2_AADHAAR_NUMBER", "Aadhaar number is required."), (isValid = false);
-        else if (!aadhaarRegex.test(aadharNumber))
-          showError("#P2_AADHAAR_NUMBER", "Enter a valid 12-digit Aadhaar number."), (isValid = false);
-
-        if (!patientGender) showError("#P2_PATIENT_GENDER", "Gender is required."), (isValid = false);
-        if (!medicineName) showError("#P2_MEDICINE_NAME", "Medicine name is required."), (isValid = false);
-        if (!medicineQuantity || isNaN(medicineQuantity))
-          showError("#P2_MEDICINE_QUANTITY", "Valid quantity is required."), (isValid = false);
-
-        if (!isValid) return;
-
-        // ================== FINAL PAYLOAD ==================
-        const payload = {
-          action: "function_call",
-          function_name: "ins_patient_fn",
-          params: {
-            PATIENT_NAME: patientName,
-            MOBILE_NUMBER: mobileNumber,
-            DISEASE_NAME: diseaseName,
-            GENDER: patientGender,
-            MEDICINE_NAME: medicineName,
-            MEDICINE_QUANTITY: medicineQuantity,
-            INSTITUTION: nameOfTheInstitution,
-            DISTRICT: district,
-            AADHAAR_NUMBER: aadharNumber,
-            PHOTO_ATTACHMENT: uploadFile?.fileBase64 || null,
-            INTERIM_ATTACH_MIMETYPE: uploadFile?.fileType || null,
-            FILE_NAME: uploadFile?.filename || null,
-            created_by: userId, // ✅ from decrypted session
-          },
-        };
-
-        $.ajax({
-          url: apiUrl,
-          method: "POST",
-          headers: { "X-APP-Key": "edm", "X-APP-Name": "edm" },
-          data: { data: encryptData(payload) },
-          dataType: "json",
-          cache: false,
-          success() {
-            showSuccessToast("Inserted Successfully");
-            $("#patientLogModal").modal("hide");
-            $("#patientForm")[0].reset();
-          },
-          error(xhr) {
-            console.error("API call failed:", xhr.responseText);
-            alert("Failed to insert record.");
-          },
-        });
-      });
-    });
   </script>
-
 </body>
 
 </html>

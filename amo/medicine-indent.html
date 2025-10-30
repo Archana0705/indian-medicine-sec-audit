@@ -791,31 +791,47 @@
       // const district = localStorage.getItem('userDistrict');
       // const nameOfTheInstitution = localStorage.getItem('userInstitutionName');
       // const system = localStorage.getItem('userSystem');
+      const session = window.getDecryptedUserSession();
+      if (!session) {
+        alert("Session expired or unauthorized access. Please log in again.");
+        sessionStorage.clear();
+        window.location.replace("../index.html");
+        return;
+      }
 
-      const district = sessionStorage.getItem('userDistrict');
-      const nameOfTheInstitution = sessionStorage.getItem('userInstitutionName');
-      const system = sessionStorage.getItem('userSystem');
+      const {
+        name: userName = "",
+        district: userDistrict = "",
+        designation: userDesignation = "",
+        system: userSystem = "",
+        institutionName: userInstitutionName = "",
+        mobnumber: userId = ""
+      } = session;
+
+      // const district = sessionStorage.getItem('userDistrict');
+      // const nameOfTheInstitution = sessionStorage.getItem('userInstitutionName');
+      // const system = sessionStorage.getItem('userSystem');
 
       // Populate district dropdown
-      if (district) {
+      if (userDistrict) {
         const districtSelect = $('#P8_NAME_OF_THE_DISTRICT');
-        districtSelect.append(`<option value="${district}" selected>${district}</option>`);
+        districtSelect.append(`<option value="${userDistrict}" selected>${userDistrict}</option>`);
       } else {
         console.warn('District not found in localStorage');
       }
 
       // Populate institution dropdown
-      if (nameOfTheInstitution) {
+      if (userInstitutionName) {
         const nameOfTheInstitutionSelect = $('#P8_NAME_OF_THE_INSTITUTION');
-        nameOfTheInstitutionSelect.append(`<option value="${nameOfTheInstitution}" selected>${nameOfTheInstitution}</option>`);
+        nameOfTheInstitutionSelect.append(`<option value="${userInstitutionName}" selected>${userInstitutionName}</option>`);
       } else {
         console.warn('Institution not found in localStorage');
       }
 
       // Populate system dropdown
-      if (system) {
+      if (userSystem) {
         const systemSelect = $('#P8_SYSTEM');
-        systemSelect.append(`<option value="${system}" selected>${system}</option>`);
+        systemSelect.append(`<option value="${userSystem}" selected>${userSystem}</option>`);
       } else {
         console.warn('System not found in localStorage');
       }
@@ -851,12 +867,12 @@
         });
       }
 
-      if (nameOfTheInstitution) {
+      if (userInstitutionName) {
         fetchAndPopulateDropdown({
           payload: {
             action: "function_call",
             function_name: "im_medicine_name_fn",
-            params: { institution_name: nameOfTheInstitution }
+            params: { institution_name: userInstitutionName }
           },
           dropdownId: "P8_MEDICINE_NAME",
           placeholder: "--Select Medicine Name--"
@@ -994,11 +1010,11 @@
         $schemeDropdown.empty().append('<option value="">Select Scheme</option>');
 
         // Get local storage values
-        const district = sessionStorage.getItem('userDistrict');
-        const nameOfTheInstitution = sessionStorage.getItem('userInstitutionName');
-        const system = sessionStorage.getItem('userSystem');
+        // const district = sessionStorage.getItem('userDistrict');
+        // const nameOfTheInstitution = sessionStorage.getItem('userInstitutionName');
+        // const system = sessionStorage.getItem('userSystem');
 
-        if (!district || !nameOfTheInstitution || !system || !indentTypeText) {
+        if (!userDistrict || !userInstitutionName || !userSystem || !indentTypeText) {
           console.warn("Missing required parameters");
           return;
         }
