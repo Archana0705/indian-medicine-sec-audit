@@ -426,12 +426,26 @@
 
   <script>
     const apiUrl = `${BASE_API_URL}/commonfunction`; // ✅ Declare globally
-    const mobile = sessionStorage.getItem("userMobileNumber");
+    // const mobile = sessionStorage.getItem("userMobileNumber");
 
     $(document).ready(function () {
 
       // District
-
+   const session = window.getDecryptedUserSession();
+      if (!session) {
+        alert("Session expired or unauthorized access. Please log in again.");
+        sessionStorage.clear();
+        window.location.replace("../index.html");
+        return;
+      }
+      const {
+        name: userName = "",
+        district: userDistrict = "",
+        designation: userDesignation = "",
+        system: userSystem = "",
+        institutionName: userInstitutionName = "",
+        mobnumber: mobnumber = ""
+      } = session;
       function fetchAndPopulateDropdown({ payload, dropdownId, placeholder }) {
         // debugger
         $.ajax({
@@ -470,7 +484,7 @@
         payload: {
           action: "function_call",
           function_name: "im_get_district_list_fn",
-          params: { mobnumber: mobile }
+          params: { mobnumber: mobnumber }
         },
         dropdownId: "P35_DISTRICT",
         placeholder: "--Select District--"
@@ -481,7 +495,7 @@
         payload: {
           action: "function_call",
           function_name: "im_get_institution_list_fn",
-          params: { mobnumber: mobile }
+          params: { mobnumber: mobnumber }
         },
         dropdownId: "P35_INSTITUTION",
         placeholder: "--Select Institution--"
@@ -564,7 +578,7 @@
       clearTable('medicineDetailsWrap');
     });
 
-
+    
 
     // ✅ Fetch table data
 

@@ -10,6 +10,8 @@
   function getDecryptedUserSession() {
     try {
       const encryptedSession = sessionStorage.getItem("encryptedUserSession");
+
+      console.log(encryptedSession);
       if (!encryptedSession) return null;
       return decryptData(encryptedSession);
     } catch (err) {
