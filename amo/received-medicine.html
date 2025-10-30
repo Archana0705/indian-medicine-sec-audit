@@ -335,13 +335,13 @@
       let uploadFile = null;
       let uploadPayload = null;
       const apiUrl = `${BASE_API_URL}/commonfunction`;
-      // const userId = localStorage.getItem('userId');
+      // const userId = sessionStorage.getItem('userId');
       // const secretKey = 'V7gN4dY8pT2xB3kRz';
-      const district = localStorage.getItem('userDistrict');
-      const designation = localStorage.getItem('userDesignation') || '';
+      const district = sessionStorage.getItem('userDistrict');
+      const designation = sessionStorage.getItem('userDesignation') || '';
 
-      const username = localStorage.getItem('userName');
-      const mobnumber = localStorage.getItem('userMobileNumber') || '9941256207';
+      const username = sessionStorage.getItem('userName');
+      const mobnumber = sessionStorage.getItem('userMobileNumber') || '9941256207';
 
       function fetchTableData() {
         debugger

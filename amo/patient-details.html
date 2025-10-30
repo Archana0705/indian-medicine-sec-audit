@@ -25,7 +25,7 @@
   <link rel="stylesheet" href="../assets/vendor/datatable/dataTables.bootstrap5.min.css">
   <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-
+  <link href="../assets/vendor/bootstrap/css/bootstrap-datepicker.min.css" rel="stylesheet">
   <!-- session toast  -->
   <link rel="stylesheet" href="../assets/css/sessionToast.css" type="text/css">
 
@@ -95,13 +95,13 @@
             <li><a data-aos="fade-up" data-aos-delay="500" class="aos-init aos-animate"><span class="d-inline-block"
                   tabindex="0" data-toggle="tooltip" title="Dark Mode"><i class="t-Icon fa fa-moon-o"
                     id="darkmode"></i></span></a></li>
-            <li><a data-aos="fade-up" data-aos-delay="600" class="form-check form-switch aos-init aos-animate"><label
+            <!-- <li><a data-aos="fade-up" data-aos-delay="600" class="form-check form-switch aos-init aos-animate"><label
                   class="form-check-label" for="screenReaderSwitch">
                   <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Screen Reader">
                     <i id="sound" class="t-Icon fa fa-volume-up"></i></span></label><input class="form-check-input"
                   type="checkbox" role="switch" id="screenReaderSwitch"
                   onclick="readText(document.getElementsByTagName('body')[0])"></a>
-            </li>
+            </li> -->
           </div>
         </div>
         <div class="t-Header-navBar">
@@ -140,7 +140,7 @@
               data-template-id="238562751400702882270_E" class="apex-page-error u-hidden"></span>
             <div class="t-Body-fullContent"></div>
             <div class="t-Body-contentInner">
-              <div class="container">
+              <!-- <div class="container">
                 <div class="row ">
                   <div class="col col-6 apex-col-auto col-start">
                     <div
@@ -169,26 +169,7 @@
                       <div class="t-Form-labelContainer col col-2">
                         <label for="P38_TO_DATE" id="P38_TO_DATE_LABEL" class="t-Form-label">To Date </label>
                       </div>
-                      <!-- <div class="t-Form-inputContainer col col-4">
-                        <div class="t-Form-itemWrapper">
-                          <a-date-picker id="P38_TO_DATE" change-month="true" change-year="true" display-as="popup"
-                            display-weeks="none" format="DS" previous-next-distance="one-month"
-                            show-days-outside-month="visible" show-on="focus" show-time="false"
-                            time-increment-minute="15" today-button="true" valid-example="3/5/2025"
-                            year-selection-range="5" class="apex-item-datepicker--popup"><input aria-haspopup="dialog"
-                              class="apex-item-text apex-item-datepicker" name="P38_TO_DATE" size="30" type="text"
-                              id="P38_TO_DATE_input" aria-labelledby="P38_TO_DATE_LABEL"><button aria-haspopup="dialog"
-                              aria-label="Select Date" class="a-Button a-Button--calendar" tabindex="-1"
-                              title="Select Date" type="button" aria-describedby="P38_TO_DATE_LABEL"
-                              aria-controls="P38_TO_DATE_input"><span
-                                class="a-Icon icon-calendar"></span></button></a-date-picker>
-                        </div>
-                        <div class="t-Form-itemAssistance">
-                          <span id="P38_TO_DATE_error_placeholder" class="a-Form-error"
-                            data-template-id="428237131064519931341_ET"></span>
-                          <div class="t-Form-itemRequired" aria-hidden="true">Required</div>
-                        </div>
-                      </div> -->
+
                       <div class="t-Form-inputContainer col col-4">
                         <div class="t-Form-itemWrapper">
 
@@ -271,6 +252,84 @@
                     </div>
                   </div>
                 </div>
+              </div> -->
+              <div class="container">
+                <div class="row">
+                  <!-- From Date -->
+                  <div class="col col-6 apex-col-auto col-start">
+                    <div
+                      class="t-Form-fieldContainer is-required rel-col t-Form-fieldContainer--indicatorAsterisk t-Form-fieldContainer--large apex-item-wrapper"
+                      id="P38_FROM_DATE_CONTAINER">
+                      <div class="t-Form-labelContainer col col-2">
+                        <label for="P38_FROM_DATE" id="P38_FROM_DATE_LABEL" class="t-Form-label">From Date</label>
+                      </div>
+                      <div class="t-Form-inputContainer col col-4">
+                        <div class="t-Form-itemWrapper">
+                          <input type="text" id="P38_FROM_DATE" name="P38_FROM_DATE"
+                            class="apex-item-text apex-item-datepicker form-control" required autocomplete="off"
+                            placeholder="Select from date">
+                        </div>
+                        <div class="t-Form-itemAssistance">
+                          <span id="P38_FROM_DATE_error_placeholder" class="a-Form-error"></span>
+                          <div class="t-Form-itemRequired" aria-hidden="true">Required</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- To Date -->
+                  <div class="col col-6 apex-col-auto col-end">
+                    <div
+                      class="t-Form-fieldContainer is-required rel-col t-Form-fieldContainer--indicatorAsterisk t-Form-fieldContainer--large apex-item-wrapper"
+                      id="P38_TO_DATE_CONTAINER">
+                      <div class="t-Form-labelContainer col col-2">
+                        <label for="P38_TO_DATE" id="P38_TO_DATE_LABEL" class="t-Form-label">To Date</label>
+                      </div>
+                      <div class="t-Form-inputContainer col col-4">
+                        <div class="t-Form-itemWrapper">
+                          <input type="text" id="P38_TO_DATE" name="P38_TO_DATE"
+                            class="apex-item-text apex-item-datepicker form-control" required autocomplete="off"
+                            placeholder="Select to date">
+                        </div>
+                        <div class="t-Form-itemAssistance">
+                          <span id="P38_TO_DATE_error_placeholder" class="a-Form-error"></span>
+                          <div class="t-Form-itemRequired" aria-hidden="true">Required</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="row mt-3">
+                  <div class="col col-3 col-start"><span class="apex-grid-nbsp">&nbsp;</span></div>
+                  <div class="col col-3 apex-col-auto">
+                    <button class="t-Button t-Button--large t-Button--success t-Button--gapTop t-Button--gapBottom"
+                      type="button" id="searchBtn"><span class="t-Button-label">Search</span></button>
+                  </div>
+                  <div class="col col-6 apex-col-auto col-end">
+                    <button
+                      class="t-Button t-Button--hot js-ignoreChange t-Button--large t-Button--gapTop t-Button--gapBottom"
+                      type="button" id="B162239396734867571906"><span class="t-Button-label">Clear</span></button>
+                  </div>
+                </div>
+
+                <!-- No Data Section -->
+                <div class="row mt-3">
+                  <div class="col col-12 apex-col-auto col-start col-end">
+                    <div id="R162326795435516536704" role="region" aria-label="Patient Details"
+                      class="t-IRR-region js-apex-region">
+                      <div id="R162326795435516536704_ir" class="a-IRR-container">
+                        <div class="a-IRR-noDataMsg text-center">
+                          <div class="a-IRR-noDataMsg-icon">
+                            <span class="a-Icon icon-irr-no-results" aria-hidden="true"></span>
+                          </div>
+                          <span class="a-IRR-noDataMsg-text">No data found.</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </main>
@@ -314,6 +373,7 @@
 
   <script src="../assets/js/jquery.latest.min.js"></script>
   <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap-datepicker.min.js"></script>
 
   <!-- DataTables -->
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
@@ -342,6 +402,37 @@
     document.getElementById("P38_TO_DATE").max = new Date().toISOString().split("T")[0];
 
   </script>
+  <script>
+    $(document).ready(function () {
+      // Initialize Bootstrap Datepicker
+      $('#P38_FROM_DATE').datepicker({
+        format: 'dd/mm/yyyy',
+        autoclose: true,
+        todayHighlight: true,
+        orientation: 'bottom auto'
+      }).on('changeDate', function (selected) {
+        var fromDate = selected.date;
+        $('#P38_TO_DATE').datepicker('setStartDate', fromDate);
+      });
+
+      $('#P38_TO_DATE').datepicker({
+        format: 'dd/mm/yyyy',
+        autoclose: true,
+        todayHighlight: true,
+        orientation: 'bottom auto'
+      }).on('changeDate', function (selected) {
+        var toDate = selected.date;
+        $('#P38_FROM_DATE').datepicker('setEndDate', toDate);
+      });
+
+      // Clear Button
+      $('#B162239396734867571906').on('click', function () {
+        $('#P38_FROM_DATE, #P38_TO_DATE').val('');
+        $('#P38_FROM_DATE').datepicker('clearDates');
+        $('#P38_TO_DATE').datepicker('clearDates');
+      });
+    });
+  </script>
 
   <script>
     let dataTableRef;
@@ -350,32 +441,29 @@
       let uploadFile = null;
       let uploadPayload = null;
       const apiUrl = `${BASE_API_URL}/commonfunction`;
-      const mobnumber = localStorage.getItem('userMobileNumber') || '9941256207';
+      const mobnumber = sessionStorage.getItem('userMobileNumber') || '9941256207';
 
-      const district = localStorage.getItem('userDistrict');
-      const nameOfTheInstitution = localStorage.getItem('userInstitutionName');
-      const system = localStorage.getItem('userSystem');
+      const district = sessionStorage.getItem('userDistrict');
+      const nameOfTheInstitution = sessionStorage.getItem('userInstitutionName');
+      const system = sessionStorage.getItem('userSystem');
       function fetchTableData() {
         const fromDateInput = document.getElementById("P38_FROM_DATE");
         fromDateInput.max = new Date().toISOString().split("T")[0];
 
-        // Get and format directly here
-        let formattedDate = null;
-        if (fromDateInput.value) {
-          const [year, month, day] = fromDateInput.value.split("-");
-          formattedDate = `${parseInt(day)}/${parseInt(month)}/${year}`;
-        }
+        // Use datepicker values directly
+        const formattedDate = fromDateInput.value || null;
+        const toDate = document.getElementById("P38_TO_DATE").value || null;
+
         const payload = {
           action: "function_call",
           function_name: "im_patient_details_by_date_fn",
           params: {
-            // p_from_date: $('#P38_FROM_DATE').val() || null,
-            // p_to_date: $('#P38_TO_DATE').val() || null,
             p_from_date: formattedDate,
-            p_to_date: "8/7/2025",
+            p_to_date: toDate,
             p_mobnumber: "9941256207",
           }
         };
+
         loadDataToTable({
           tableId: 'pressReleaseTable',
           apiUrl,
@@ -383,20 +471,20 @@
           payload: encryptData(payload),
           rowBuilder: (item) => {
             return `
-                  <tr>
-                    <td class="u-tC">${item.sl_no || 'N/A'}</td>
-                    <td class="u-tC">${item.ts_edm_id || 'N/A'}</td>
-                    <td class="u-tC">${item.ts_date || 'N/A'}</td>
-                    <td class="u-tC">${item.ts_activity || 'N/A'}</td>
-                    <td class="u-tC">${item.ts_notes || 'N/A'}</td>
-                    <td class="u-tC">${item.ts_created_date || 'N/A'}</td>
-                    <td class="u-tC">${item.inspection_report || 'N/A'}</td>
-                    <td>${createDownloadLink(item.image_attachment1, item.mime_type1, item.file_name1)}</td>
-                    <td>${createDownloadLink(item.image_attachment2, item.mime_type2, item.file_name2)}</td>
-                    <td>${createDownloadLink(item.image_attachment3, item.mime_type3, item.file_name3)}</td>
-                    <td>${createDownloadLink(item.image_attachment4, item.mime_type4, item.file_name4)}</td>
-                  </tr>
-                `;
+        <tr>
+          <td class="u-tC">${item.sl_no || 'N/A'}</td>
+          <td class="u-tC">${item.ts_edm_id || 'N/A'}</td>
+          <td class="u-tC">${item.ts_date || 'N/A'}</td>
+          <td class="u-tC">${item.ts_activity || 'N/A'}</td>
+          <td class="u-tC">${item.ts_notes || 'N/A'}</td>
+          <td class="u-tC">${item.ts_created_date || 'N/A'}</td>
+          <td class="u-tC">${item.inspection_report || 'N/A'}</td>
+          <td>${createDownloadLink(item.image_attachment1, item.mime_type1, item.file_name1)}</td>
+          <td>${createDownloadLink(item.image_attachment2, item.mime_type2, item.file_name2)}</td>
+          <td>${createDownloadLink(item.image_attachment3, item.mime_type3, item.file_name3)}</td>
+          <td>${createDownloadLink(item.image_attachment4, item.mime_type4, item.file_name4)}</td>
+        </tr>
+      `;
           },
           onTableInit: function (dtRef) {
             dataTableRef = dtRef;

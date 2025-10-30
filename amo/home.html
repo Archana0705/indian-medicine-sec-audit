@@ -79,13 +79,13 @@
             <li><a data-aos="fade-up" data-aos-delay="500" class="aos-init aos-animate"><span class="d-inline-block"
                   tabindex="0" data-toggle="tooltip" title="Dark Mode"><i class="t-Icon fa fa-moon-o"
                     id="darkmode"></i></span></a></li>
-            <li><a data-aos="fade-up" data-aos-delay="600" class="form-check form-switch aos-init aos-animate"><label
+            <!-- <li><a data-aos="fade-up" data-aos-delay="600" class="form-check form-switch aos-init aos-animate"><label
                   class="form-check-label" for="screenReaderSwitch">
                   <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Screen Reader">
                     <i id="sound" class="t-Icon fa fa-volume-up"></i></span></label><input class="form-check-input"
                   type="checkbox" role="switch" id="screenReaderSwitch"
                   onclick="readText(document.getElementsByTagName('body')[0])"></a>
-            </li>
+            </li> -->
           </div>
         </div>
         <div class="t-Header-navBar">
@@ -518,9 +518,10 @@
   <script src="../assets/js/global.js"></script>
   <script src="../assets/js/encrypt_decrypt.js"></script>
   <script src="../assets/js/singleFileUpload.js"></script>
+  <script src="../assets/js/auth.js"></script>
+
   <script src="../assets/js/globalHeader.js"></script>
   <script src="../assets/js/apiConfig.js"></script>
-  <script src="../assets/js/validateField.js"></script>
 
   <script>
     let dataTableRef;
@@ -533,7 +534,39 @@
       // const secretKey = 'V7gN4dY8pT2xB3kRz';
       // const district = sessionStorage.getItem('userDistrict');
       // const username = sessionStorage.getItem('userName');
-      const mobnumber = sessionStorage.getItem('userMobileNumber') || '9941256207';
+      const session = window.getDecryptedUserSession();
+
+      let userName = '';
+      let userDistrict = '';
+      let userDesignation = '';
+      let userSystem = '';
+      let userInstitutionName = '';
+
+      if (session) {
+        userName = session.name || '';
+        userDistrict = session.district || '';
+        userDesignation = session.designation || '';
+        userSystem = session.system || '';
+        userInstitutionName = session.institutionName || '';
+      } else {
+        console.warn("⚠️ No user session found or decryption failed.");
+      }
+
+      if (userName) {
+        $('#P1_NAME_OF_THE_INDENTING_OFFICER_DISPLAY').text(userName);
+      }
+      if (userDesignation) {
+        $('#P1_DESIGNATION_OF_OFFICER_DISPLAY').text(userDesignation);
+      }
+      if (userSystem) {
+        $('#P1_SYSTEM_DISPLAY').text(userSystem);
+      }
+      if (userInstitutionName) {
+        $('#P1_NAME_OF_THE_INSTITUTION_DISPLAY').text(userInstitutionName);
+      }
+      if (userDistrict) {
+        $('#P1_DISTRICT_DISPLAY').text(userDistrict);
+      }
 
       $('#openPatientLogBtn').off('click').on('click', function (event) {
         event.preventDefault();

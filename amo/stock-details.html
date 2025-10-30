@@ -289,7 +289,7 @@
                                                   class="t-Form-label">Quantity</label>
                                               </div>
                                               <div class="t-Form-inputContainer">
-                                                <div class="t-Form-itemWrapper"><input type="text" id="P10_QUANTITY"
+                                                <div class="t-Form-itemWrapper"><input type="number" id="P10_QUANTITY"
                                                     name="P10_QUANTITY" required="" class="text_field apex-item-text"
                                                     value="" size="30" maxlength="1000"></div><span
                                                   id="P10_QUANTITY_error_placeholder" class="a-Form-error"
@@ -308,7 +308,7 @@
                                                   class="t-Form-label">Batch No</label>
                                               </div>
                                               <div class="t-Form-inputContainer">
-                                                <div class="t-Form-itemWrapper"><input type="text" id="P10_BATCH_NO"
+                                                <div class="t-Form-itemWrapper"><input type="number" id="P10_BATCH_NO"
                                                     name="P10_BATCH_NO" required="" class="text_field apex-item-text"
                                                     value="" size="30" maxlength="1000"></div><span
                                                   id="P10_BATCH_NO_error_placeholder" class="a-Form-error"
@@ -443,15 +443,12 @@
       let uploadFile = null;
       let uploadPayload = null;
       const apiUrl = `${BASE_API_URL}/commonfunction`;
-      // const userId = localStorage.getItem('userId');
-      // const secretKey = 'V7gN4dY8pT2xB3kRz';
-      // const district = localStorage.getItem('userDistrict');
-      // const username = localStorage.getItem('userName');
-      const mobnumber = localStorage.getItem('userMobileNumber') || '9941256207';
+      const mobnumber = sessionStorage.getItem('userMobileNumber') || '9941256207';
+      const district = sessionStorage.getItem('userDistrict');
+      const nameOfTheInstitution = sessionStorage.getItem('userInstitutionName');
+      const system = sessionStorage.getItem('userSystem');
 
-      const district = localStorage.getItem('userDistrict');
-      const nameOfTheInstitution = localStorage.getItem('userInstitutionName');
-      const system = localStorage.getItem('userSystem');
+      // 🟦 Open modal and populate dropdowns
       $('#openPatientLogBtn').off('click').on('click', function (event) {
         event.preventDefault();
 
@@ -466,9 +463,7 @@
               'X-APP-Key': 'edm',
               'X-APP-Name': 'edm'
             },
-            data: {
-              data: encryptData(payload)
-            },
+            data: { data: encryptData(payload) },
             dataType: 'json',
             success(response) {
               const decrypted = decryptData(response.data);
@@ -488,13 +483,15 @@
           });
         }
 
+        // 🟩 Pre-fill Institution
         if (nameOfTheInstitution) {
           const nameOfTheInstitutionSelect = $('#P10_INSTITUTION_NAME');
-          nameOfTheInstitutionSelect.append(`<option value="${nameOfTheInstitution}" selected>${nameOfTheInstitution}</option>`);
+          nameOfTheInstitutionSelect.empty().append(`<option value="${nameOfTheInstitution}" selected>${nameOfTheInstitution}</option>`);
         } else {
-          console.warn('Institution not found in localStorage');
+          console.warn('Institution not found in sessionStorage');
         }
 
+        // 🟦 Fetch medicine list based on institution
         if (nameOfTheInstitution) {
           fetchAndPopulateDropdown({
             payload: {
@@ -506,6 +503,8 @@
             placeholder: "--Select Medicine Name--"
           });
         }
+
+        // 🟧 On Medicine Change → fetch packing size
         $('#P10_MEDICINE_NAME').off('change').on('change', function () {
           const selectedMedicine = $(this).val();
 
@@ -520,14 +519,12 @@
               placeholder: "--Select Packing size--"
             });
           } else {
-            // Clear medicine dropdown if no institution selected
             $('#P10_PACKAGE_SIZE').empty().append('<option value="">--Select Packing Size--</option>');
           }
         });
-
-
       });
 
+      // 🟦 Submit button logic
       $('#submitBtn').on('click', async function (event) {
         event.preventDefault();
         $('.field-error').remove();
@@ -538,75 +535,62 @@
         var medicinePackageSize = $('#P10_PACKAGE_SIZE').val()?.trim();
         var medicineBatchNo = $('#P10_BATCH_NO').val()?.trim();
         var medicineExpiryDate = $('#P10_EXPIRY_DATE').val()?.trim();
-        // Basic validation function
+
+        // Basic validation
         function showError(selector, message) {
           $(selector).after(`<div class="field-error" style="color:red;font-size:12px;">${message}</div>`);
         }
 
         let isValid = true;
-
-        if (!nameOfTheInstitution) {
-          showError('#P10_INSTITUTION_NAME', 'Institution name is required.');
-          showErrorToast("Institution name is required.");
-          isValid = false;
-        }
-        if (!medicineName) {
-          showError('#P10_MEDICINE_NAME', 'Medicine name is required.');
-          showErrorToast("Medicine name is required.");
-          isValid = false;
-        }
-        if (!medicineQuantity || isNaN(medicineQuantity)) {
-          showError('#P10_QUANTITY', 'Valid quantity is required.');
-          showErrorToast("Valid quantity is required.");
-          isValid = false;
-        }
-        if (!medicinePackageSize) {
-          showError('#P10_PACKAGE_SIZE', 'Packing size is required.');
-          showErrorToast("Packing size is required.");
-          isValid = false;
-        }
-        if (!medicineBatchNo) {
-          showError('#P10_BATCH_NO', 'Batch number is required.');
-          showErrorToast("Batch number is required.");
-          isValid = false;
-        }
-        if (!medicineExpiryDate) {
-          showError('#P10_EXPIRY_DATE', 'Expiry date is required.');
-          showErrorToast("Expiry date is required.");
-          isValid = false;
-        }
-
+        if (!nameOfTheInstitution) { showError('#P10_INSTITUTION_NAME', 'Institution name is required.'); showErrorToast("Institution name is required."); isValid = false; }
+        if (!medicineName) { showError('#P10_MEDICINE_NAME', 'Medicine name is required.'); showErrorToast("Medicine name is required."); isValid = false; }
+        if (!medicineQuantity || isNaN(medicineQuantity)) { showError('#P10_QUANTITY', 'Valid quantity is required.'); showErrorToast("Valid quantity is required."); isValid = false; }
+        if (!medicinePackageSize) { showError('#P10_PACKAGE_SIZE', 'Packing size is required.'); showErrorToast("Packing size is required."); isValid = false; }
+        if (!medicineBatchNo) { showError('#P10_BATCH_NO', 'Batch number is required.'); showErrorToast("Batch number is required."); isValid = false; }
+        if (!medicineExpiryDate) { showError('#P10_EXPIRY_DATE', 'Expiry date is required.'); showErrorToast("Expiry date is required."); isValid = false; }
 
         if (!isValid) return;
+
+        const numericQuantity = parseInt(medicineQuantity, 10);
+
         const payload = {
-          action: "procedure_call",
-          procedure_name: "im_stock_dtls_ins_sp",
+          action: "function_call",
+          function_name: "im_medicine_details_ins_fn_1",
           params: {
             p_medicine: medicineName,
             p_size: medicinePackageSize,
-            p_qty: medicineQuantity,
-            p_batch: medicineBatchNo,
-            expiry_date: medicineExpiryDate,
-            p_user: localStorage.getItem('userMobileNumber') || '9941256207',
-            p_institude: nameOfTheInstitution,
+            p_quantity: numericQuantity,
+            p_batch_no: medicineBatchNo,
+            p_expiry_date: medicineExpiryDate,
+            p_created_by: mobnumber,
+            p_institution_name: nameOfTheInstitution,
           }
         };
 
-        // API call
+        // 🟩 Disable button while submitting
+        $('#submitBtn').prop('disabled', true).text('Submitting...');
+
         $.ajax({
           url: apiUrl,
           method: "POST",
-          headers: {
-            'X-APP-Key': "edm",
-            'X-APP-Name': "edm"
-          },
-          data: {
-            data: encryptData(payload)
-          },
+          headers: { 'X-APP-Key': "edm", 'X-APP-Name': "edm" },
+          data: { data: encryptData(payload) },
           dataType: 'json',
           cache: false,
           success: function (response) {
-            alert("Inserted Successfully");
+            showSuccessToast("Inserted Successfully");
+
+            const modalInstance = bootstrap.Modal.getInstance(document.getElementById('patientLogModal'));
+            modalInstance.hide();
+
+            $('#patientLogModal').find('input, select').val('');
+
+            $('#P10_PACKAGE_SIZE').html('<option value="">--Select Packing Size--</option>');
+            $('#P10_MEDICINE_NAME').html('<option value="">--Select Medicine Name--</option>');
+
+            $('#submitBtn').prop('disabled', false).text('Submit');
+
+
           },
           error: function (xhr, status, error) {
             console.error("API call failed:", {
@@ -615,15 +599,16 @@
               responseText: xhr.responseText,
               error: error
             });
+            showErrorToast("Something went wrong. Try again!");
+            $('#submitBtn').prop('disabled', false).text('Submit');
           }
         });
 
         console.log(payload);
       });
-
-
     });
   </script>
+
 </body>
 
 </html>

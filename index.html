@@ -450,14 +450,13 @@
   <script src="assets/js/apiConfig.js"></script>
   <script src="assets/js/auth.js"></script>
 
-
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const sendOtpButton = document.getElementById('sendOtp');
       const loginButton = document.querySelector('.login-but');
-      let generatedOtp = '664282';
+      let generatedOtp = '664282'; // Dummy OTP
 
-      // Step 1: "Send" OTP (just show OTP input, no API call)
+      // Step 1: Send OTP (mock)
       sendOtpButton.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -468,14 +467,13 @@
           return;
         }
 
-        showSuccessToast(`OTP has been sent to your mobile number.`); // show dummy OTP
-
+        showSuccessToast(`OTP has been sent to your mobile number.`);
         $("#P9999_OTP_NUMBER_CONTAINER").show();
         $(".login-but").show();
         $("#sendOtp").hide();
       });
 
-      // Step 2: Validate OTP and Navigate
+      // Step 2: Validate OTP and Login
       loginButton.addEventListener('click', async (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -492,25 +490,35 @@
         }
 
         const mobnumber = document.getElementById('P9999_USERNAME')?.value?.trim();
+
         try {
+          // 🔐 Create encrypted session
           await initializeUserSession(mobnumber);
           sessionStorage.setItem('userMobileNumber', mobnumber);
+          sessionStorage.setItem('loginTime', new Date().getTime());
 
-          const role = sessionStorage.getItem('userRole') || '';
+          // 🔓 Get decrypted session for navigation logic  
+          console.log(sessionStorage.getItem('loginTime'), "logintime");
+          const session = getDecryptedUserSession();
+          if (!session) {
+            throw new Error("User session decryption failed.");
+          }
+
+          console.log("✅ Decrypted session:", session);
+
+          // 🧠 Determine user role and redirect
+          const role = (session.role || '').toLowerCase();
           let folder = '';
 
-          if (role.toLowerCase().includes('amo')) folder = 'amo';
-          else if (role.toLowerCase().includes('dsmo')) folder = 'dsmo';
-          else if (role.toLowerCase().includes('factory')) folder = 'factory';
-          else if (role.toLowerCase().includes('nodal')) folder = 'nodal';
-          else if (role.toLowerCase().includes('admin')) folder = 'admin';
+          if (role.includes('amo')) folder = 'amo';
+          else if (role.includes('dsmo')) folder = 'dsmo';
+          else if (role.includes('factory')) folder = 'factory';
+          else if (role.includes('nodal')) folder = 'nodal';
+          else if (role.includes('admin')) folder = 'admin';
           else throw new Error('Unknown role: ' + role);
 
+          // 🚀 Redirect to user’s home page
           window.location.href = `${folder}/home.html`;
-
-          const loginTime = new Date().getTime();
-          sessionStorage.setItem("loginTime", loginTime);
-
 
         } catch (error) {
           console.error("Login Error:", error);
@@ -519,6 +527,7 @@
       });
     });
   </script>
+
 
   <script>
     // Prevent navigating back into logged-in pages

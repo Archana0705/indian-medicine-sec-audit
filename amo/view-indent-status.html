@@ -479,23 +479,23 @@
       let uploadFile = null;
       let uploadPayload = null;
       const apiUrl = `${BASE_API_URL}/commonfunction`;
-      // const userId = localStorage.getItem('userId');
+      // const userId = sessionStorage.getItem('userId');
       // const secretKey = 'V7gN4dY8pT2xB3kRz';
-      // const district = localStorage.getItem('userDistrict');
-      // const username = localStorage.getItem('userName');
-      // const mobnumber = localStorage.getItem('userMob');
+      // const district = sessionStorage.getItem('userDistrict');
+      // const username = sessionStorage.getItem('userName');
+      // const mobnumber = sessionStorage.getItem('userMob');
 
 
-      const district = localStorage.getItem('userDistrict');
-      const nameOfTheInstitution = localStorage.getItem('userInstitutionName');
-      const system = localStorage.getItem('userSystem');
+      const district = sessionStorage.getItem('userDistrict');
+      const nameOfTheInstitution = sessionStorage.getItem('userInstitutionName');
+      const system = sessionStorage.getItem('userSystem');
 
       // Populate district dropdown
       if (district) {
         const districtSelect = $('#P8_NAME_OF_THE_DISTRICT');
         districtSelect.append(`<option value="${district}" selected>${district}</option>`);
       } else {
-        console.warn('District not found in localStorage');
+        console.warn('District not found in sessionStorage');
       }
 
       // Populate institution dropdown
@@ -503,7 +503,7 @@
         const nameOfTheInstitutionSelect = $('#P12_INSTITUTION_NAME');
         nameOfTheInstitutionSelect.append(`<option value="${nameOfTheInstitution}" selected>${nameOfTheInstitution}</option>`);
       } else {
-        console.warn('Institution not found in localStorage');
+        console.warn('Institution not found in sessionStorage');
       }
 
       // Populate system dropdown
@@ -511,7 +511,7 @@
         const systemSelect = $('#P12_SYSTEM');
         systemSelect.append(`<option value="${system}" selected>${system}</option>`);
       } else {
-        console.warn('System not found in localStorage');
+        console.warn('System not found in sessionStorage');
       }
 
 
@@ -645,7 +645,7 @@
             p_type: indentType,
             p_institution: nameOfTheInstitution,
             p_quarters: quarters,
-            p_created_by: localStorage.getItem('userMobileNumber') || '9994793279',
+            p_created_by: sessionStorage.getItem('userMobileNumber') || '9994793279',
             p_financial_year: financialYear,
             p_district: district,
             p_system: system,
