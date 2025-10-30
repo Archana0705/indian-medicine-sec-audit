@@ -25,12 +25,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     // { name: 'User Details', href: '../admin/user-details.html' }
                 ],
                 commissioner: [
-                    { name: 'Dashboard', href: '../commissioner/overall-dashboard.html' },
+                    { name: 'Home', href: '../commissioner/home.html' },
                     {
                         name: 'Overall Report for Commissioner',
                         href: '#',
                         children: [
-                            { name: 'Overall Dashboard Report for Commissioner', href: '../factory/medicine-details.html' },
+                            { name: 'Overall Dashboard Report for Commissioner', href: '../commissioner/overall-dashboard.html' },
                             { name: 'All Stock details', href: '../factory/medicine-details-quarter.html' },
                         ]
                     },

@@ -18,6 +18,13 @@
   <link rel="stylesheet" href="../assets/css/custom.min.css" type="text/css" />
   <link rel="stylesheet" href="../assets/css/aos.min.css" type="text/css" />
   <link rel="stylesheet" href="../assets/css/theme.css" type="text/css" />
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/datatable/css/dataTables.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/vendor/datatable/dataTables.bootstrap5.min.css">
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
 
   <!-- session toast  -->
   <link rel="stylesheet" href="../assets/css/sessionToast.css" type="text/css">
@@ -85,14 +92,7 @@
   class="t-PageBody t-PageBody--hideLeft t-PageBody--hideActions t-PageTemplate--standard apex-top-nav apex-icons-fontapex apex-theme-vita-standard js-HeaderExpanded t-PageBody--topNav"
   id="t_PageBody" data-aos-easing="ease" data-aos-duration="400" data-aos-delay="0">
   <a href="#main" id="t_Body_skipToContent">Skip to Main Content</a>
-  <form action="wwv_flow.accept?p_context=imim/home/5821089868360" method="post" name="wwv_flow" id="wwvFlowForm"
-    data-oj-binding-provider="none" novalidate="" autocomplete="off">
-    <input type="hidden" name="p_flow_id" value="117" id="pFlowId" /><input type="hidden" name="p_flow_step_id"
-      value="1" id="pFlowStepId" /><input type="hidden" name="p_instance" value="5821089868360" id="pInstance" /><input
-      type="hidden" name="p_page_submission_id" value="27543525866549532329662824388761876460"
-      id="pPageSubmissionId" /><input type="hidden" name="p_request" value="" id="pRequest" /><input type="hidden"
-      name="p_reload_on_submit" value="S" id="pReloadOnSubmit" /><input type="hidden" value="imim/home/5821089868360"
-      id="pContext" /><input type="hidden" value="27543525866549532329662824388761876460" id="pSalt" />
+  <form>
     <header class="t-Header" id="t_Header" role="banner">
       <div class="t-Header-branding">
         <div class="t-Header-controls">
@@ -136,17 +136,7 @@
         </div>
         <div class="t-Header-navBar">
           <div class="t-Header-navBar--start"></div>
-          <div class="t-Header-navBar--center">
-            <ul class="t-NavigationBar" id="userName">
-              <li class="t-NavigationBar-item">
-                <button class="t-Button t-Button--icon t-Button t-Button--header t-Button--navBar" type="button"
-                  id="L428237300758551931558" data-menu="menu_L428237300758551931558" title="" aria-haspopup="menu">
-                  <span class="t-Icon fa fa-user" aria-hidden="true"></span><span class="t-Button-label"></span><span
-                    class="t-Button-badge"></span><span class="a-Icon icon-down-arrow" aria-hidden="true"></span>
-                </button>
-              </li>
-            </ul>
-          </div>
+          <div id="globalHeader"></div>
           <div class="t-Header-navBar--end"></div>
         </div>
       </div>
@@ -165,19 +155,8 @@
       <div class="t-Header-nav">
         <div class="t-Header-nav-list js-tabLike js-tabLike a-MenuBar a-MenuBar--overflow a-MenuBar--tabs"
           id="t_MenuNav" role="menubar">
-          <ul role="none">
-            <li class="a-MenuBar-item1">
-              <a href="../commissioner/home.html" class="navpage">Home</a>
-            </li>
-            <li class="a-MenuBar-item1">
-              <a href="../commissioner/all-stocks-details.html" class="navpage">All stocks detail</a>
-            </li>
-            <li class="a-MenuBar-item1">
-              <a href="../commissioner/overall-report.html" class="navpage">Overall Report</a>
-            </li>
-            <li class="a-MenuBar-item1">
-              <a href="../commissioner/overall-dashboard.html" class="navpage">Overall Dashboard</a>
-            </li>
+          <ul id="nav-links">
+            <div id="navbar-container"></div>
           </ul>
         </div>
       </div>
@@ -468,7 +447,8 @@
   <script src="../assets/js/item.Colorpicker.min.js"></script>
   <script src="../assets/js/jetCommonBundle.min.js"></script>
   <script src="../assets/js/chartBundle.min.js"></script>
-
+  <script src="../assets/js/toastUtil.js"></script>
+  <script src="../assets/js/validation.js"></script>
   <!-- <script src="../assets/js/toastUtil.js"></script> -->
   <script type="module" src="../assets/js/dataTableUtil.js"></script>
   <script src="../assets/js/crypto-js.min.js"></script>
@@ -478,7 +458,6 @@
   <script src="../assets/js/singleFileUpload.js"></script>
   <script src="../assets/js/globalHeader.js"></script>
   <script src="../assets/js/apiConfig.js"></script>
-  <script src="../assets/js/dataTableUtil.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <script>
