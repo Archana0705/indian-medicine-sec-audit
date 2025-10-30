@@ -494,7 +494,7 @@
                                       Quantity</label>
                                   </div>
                                   <div class="t-Form-inputContainer">
-                                    <div class="t-Form-itemWrapper"><input type="text" id="P8_QUANTITY"
+                                    <div class="t-Form-itemWrapper"><input type="number" id="P8_QUANTITY"
                                         name="P8_QUANTITY" required=""
                                         class="number_field apex-item-text apex-item-number" value="" size="32"
                                         maxlength="200" inputmode="decimal" style="text-align:start"></div>
@@ -513,7 +513,7 @@
                                     <label for="P8_AMOUNT" id="P8_AMOUNT_LABEL" class="t-Form-label">Amount</label>
                                   </div>
                                   <div class="t-Form-inputContainer">
-                                    <div class="t-Form-itemWrapper"><input type="text" id="P8_AMOUNT" name="P8_AMOUNT"
+                                    <div class="t-Form-itemWrapper"><input type="number" id="P8_AMOUNT" name="P8_AMOUNT"
                                         required="" class="number_field apex-item-text apex-item-number" value=""
                                         size="30" maxlength="40" inputmode="decimal" style="text-align:start">
                                     </div>
@@ -531,7 +531,7 @@
                                       Amount</label>
                                   </div>
                                   <div class="t-Form-inputContainer">
-                                    <div class="t-Form-itemWrapper"><input type="text" id="P8_TOTAL_AMOUNT"
+                                    <div class="t-Form-itemWrapper"><input type="number" id="P8_TOTAL_AMOUNT"
                                         name="P8_TOTAL_AMOUNT" required=""
                                         class="number_field apex-item-text apex-item-number" value="" size="30"
                                         maxlength="40" inputmode="decimal" style="text-align:start"></div>
@@ -772,12 +772,12 @@
   <script src="../assets/js/singleFileUpload.js"></script>
   <script src="../assets/js/globalHeader.js"></script>
   <script src="../assets/js/apiConfig.js"></script>
-  <script src="../assets/js/validateField.js"></script>
 
   <script>
     let dataTableRef;
 
     $(document).ready(function () {
+      debugger
       let uploadFile = null;
       let uploadPayload = null;
       const apiUrl = `${BASE_API_URL}/commonfunction`;
@@ -788,9 +788,13 @@
       // const mobnumber = localStorage.getItem('userMob');
 
 
-      const district = localStorage.getItem('userDistrict');
-      const nameOfTheInstitution = localStorage.getItem('userInstitutionName');
-      const system = localStorage.getItem('userSystem');
+      // const district = localStorage.getItem('userDistrict');
+      // const nameOfTheInstitution = localStorage.getItem('userInstitutionName');
+      // const system = localStorage.getItem('userSystem');
+
+      const district = sessionStorage.getItem('userDistrict');
+      const nameOfTheInstitution = sessionStorage.getItem('userInstitutionName');
+      const system = sessionStorage.getItem('userSystem');
 
       // Populate district dropdown
       if (district) {
@@ -978,6 +982,7 @@
       //   }
       // });
       $('#P8_INDENT_TYPE').on('change', function () {
+        debugger
         const indentTypeText = $('#P8_INDENT_TYPE option:selected').text().trim();
         const $allotedDetails = $('#allotedDetails');
         const $schemeDetails = $('#schemeDetails');
@@ -989,9 +994,9 @@
         $schemeDropdown.empty().append('<option value="">Select Scheme</option>');
 
         // Get local storage values
-        const district = localStorage.getItem('userDistrict');
-        const nameOfTheInstitution = localStorage.getItem('userInstitutionName');
-        const system = localStorage.getItem('userSystem');
+        const district = sessionStorage.getItem('userDistrict');
+        const nameOfTheInstitution = sessionStorage.getItem('userInstitutionName');
+        const system = sessionStorage.getItem('userSystem');
 
         if (!district || !nameOfTheInstitution || !system || !indentTypeText) {
           console.warn("Missing required parameters");
@@ -999,6 +1004,7 @@
         }
 
         if (indentTypeText.toLowerCase() === "regular") {
+
           // Regular - hide scheme dropdown
           $schemeDetails.hide();
           $allotedDetails.show();

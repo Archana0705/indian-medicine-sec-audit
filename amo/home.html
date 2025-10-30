@@ -510,7 +510,7 @@
   <script src="../assets/js/item.Colorpicker.min.js"></script>
   <script src="../assets/js/jetCommonBundle.min.js"></script>
   <script src="../assets/js/chartBundle.min.js"></script>
-
+  <script src="../assets/js/sanitizeInput.js"></script>
   <script src="../assets/js/toastUtil.js"></script>
   <script type="module" src="../assets/js/dataTableUtil.js"></script>
   <script src="../assets/js/crypto-js.min.js"></script>
@@ -654,72 +654,46 @@
         event.preventDefault();
         $('.field-error').remove();
 
-        var district = $('#P2_DISTRICT').val()?.trim();
-        var nameOfTheInstitution = $('#P2_NAME_OF_THE_INSTITUTION').val()?.trim();
-        var patientName = $('#P2_PATIENT_NAME').val()?.trim();
-        var diseaseName = $('#P2_PATIENT_DISEASE').val()?.trim();
-        var mobileNumber = $('#P2_MOBILE_NUMBER').val()?.trim();
-        var aadharNumber = $('#P2_AADHAAR_NUMBER').val()?.trim();
-        var patientGender = $('#P2_PATIENT_GENDER').val();
-        var medicineName = $('#P2_MEDICINE_NAME').val()?.trim();
-        var medicineQuantity = $('#P2_MEDICINE_QUANTITY').val()?.trim();
+        // Get sanitized values
+        const district = window.sanitizeInput($('#P2_DISTRICT').val()?.trim());
+        const nameOfTheInstitution = window.sanitizeInput($('#P2_NAME_OF_THE_INSTITUTION').val()?.trim());
+        const patientName = window.sanitizeInput($('#P2_PATIENT_NAME').val()?.trim());
+        const diseaseName = window.sanitizeInput($('#P2_PATIENT_DISEASE').val()?.trim());
+        const mobileNumber = window.sanitizeInput($('#P2_MOBILE_NUMBER').val()?.trim());
+        const aadharNumber = window.sanitizeInput($('#P2_AADHAAR_NUMBER').val()?.trim());
+        const patientGender = window.sanitizeInput($('#P2_PATIENT_GENDER').val());
+        const medicineName = window.sanitizeInput($('#P2_MEDICINE_NAME').val()?.trim());
+        const medicineQuantity = window.sanitizeInput($('#P2_MEDICINE_QUANTITY').val()?.trim());
 
-        // Basic validation function
         function showError(selector, message) {
           $(selector).after(`<div class="field-error" style="color:red;font-size:12px;">${message}</div>`);
         }
 
         let isValid = true;
 
-        if (!district) {
-          showError('#P2_DISTRICT', 'District is required.');
-          showErrorToast("District is required.");
+        if (!district) { showError('#P2_DISTRICT', 'District is required.'); isValid = false; }
+        if (!nameOfTheInstitution) { showError('#P2_NAME_OF_THE_INSTITUTION', 'Institution name is required.'); isValid = false; }
+        if (!diseaseName) { showError('#P2_PATIENT_DISEASE', 'Disease name is required.'); isValid = false; }
+        if (!patientName) { showError('#P2_PATIENT_NAME', 'Patient name is required.'); isValid = false; }
+        if (!mobileNumber || !/^\d{10}$/.test(mobileNumber)) { showError('#P2_MOBILE_NUMBER', 'Valid 10-digit mobile number is required.'); isValid = false; }
+
+        // 🆔 Aadhaar Validation
+        const aadhaarRegex = /^\d{12}$/;
+        if (!aadharNumber) {
+          showError('#P2_AADHAAR_NUMBER', 'Aadhaar number is required.');
+          isValid = false;
+        } else if (!aadhaarRegex.test(aadharNumber)) {
+          showError('#P2_AADHAAR_NUMBER', 'Enter a valid 12-digit Aadhaar number.');
+          showErrorToast('Enter a valid 12-digit Aadhaar number.');
           isValid = false;
         }
-        if (!nameOfTheInstitution) {
-          showError('#P2_NAME_OF_THE_INSTITUTION', 'Institution name is required.');
-          showErrorToast("Institution name is required.");
-          isValid = false;
-        }
-        if (!diseaseName) {
-          showError('#P2_PATIENT_DISEASE', 'Institution name is required.');
-          showErrorToast("Institution name is required.");
-          isValid = false;
-        }
-        if (!patientName) {
-          showError('#P2_PATIENT_NAME', 'Patient name is required.');
-          showErrorToast("Patient name is required.");
-          isValid = false;
-        }
-        if (!mobileNumber || !/^\d{10}$/.test(mobileNumber)) {
-          showError('#P2_MOBILE_NUMBER', 'Valid 10-digit mobile number is required.');
-          showErrorToast("Valid 10-digit mobile number is required.");
-          isValid = false;
-        }
-        if (!aadharNumber || !/^\d{12}$/.test(aadharNumber)) {
-          showError('#P2_AADHAAR_NUMBER', 'Valid 12-digit Aadhar number is required.');
-          showErrorToast("Valid 12-digit Aadhar number is required.");
-          isValid = false;
-        }
-        if (!patientGender) {
-          showError('#P2_PATIENT_GENDER', 'Gender is required.');
-          showErrorToast("Gender is required.");
-          isValid = false;
-        }
-        if (!medicineName) {
-          showError('#P2_MEDICINE_NAME', 'Medicine name is required.');
-          showErrorToast("Medicine name is required.");
-          isValid = false;
-        }
-        if (!medicineQuantity || isNaN(medicineQuantity)) {
-          showError('#P2_MEDICINE_QUANTITY', 'Valid quantity is required.');
-          showErrorToast("Valid quantity is required.");
-          isValid = false;
-        }
+
+        if (!patientGender) { showError('#P2_PATIENT_GENDER', 'Gender is required.'); isValid = false; }
+        if (!medicineName) { showError('#P2_MEDICINE_NAME', 'Medicine name is required.'); isValid = false; }
+        if (!medicineQuantity || isNaN(medicineQuantity)) { showError('#P2_MEDICINE_QUANTITY', 'Valid quantity is required.'); isValid = false; }
 
         if (!isValid) return;
 
-        // Prepare payload with correct params
         const payload = {
           action: "function_call",
           function_name: "ins_patient_fn",
@@ -740,7 +714,6 @@
           }
         };
 
-        // API call
         $.ajax({
           url: apiUrl,
           method: "POST",
@@ -748,25 +721,16 @@
             'X-APP-Key': "edm",
             'X-APP-Name': "edm"
           },
-          data: {
-            data: encryptData(payload)
-          },
+          data: { data: encryptData(payload) },
           dataType: 'json',
           cache: false,
           success: function (response) {
-            alert("Inserted Successfully");
+            showSuccessToast("Inserted Successfully");
           },
           error: function (xhr, status, error) {
-            console.error("API call failed:", {
-              status: xhr.status,
-              statusText: xhr.statusText,
-              responseText: xhr.responseText,
-              error: error
-            });
+            console.error("API call failed:", xhr.responseText);
           }
         });
-
-        console.log(payload);
       });
 
       //   $('#P7_LOCATION').on('change', function () {
