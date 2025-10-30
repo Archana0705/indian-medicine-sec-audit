@@ -120,22 +120,11 @@
             </li>
           </div>
         </div>
-        <div class="t-Header-navBar">
+         <div class="t-Header-navBar">
           <div class="t-Header-navBar--start"></div>
-          <div class="t-Header-navBar--center">
-            <ul class="t-NavigationBar " id="428237243222882931397">
-              <li class="t-NavigationBar-item ">
-                <button class="t-Button t-Button--icon t-Button t-Button--header t-Button--navBar" type="button"
-                  id="username" data-menu="menu_L428237300758551931558" title="" aria-haspopup="menu">
-                  <span class="t-Icon fa fa-user" aria-hidden="true"></span><span class="t-Button-label"></span><span
-                    class="t-Button-badge"></span><span class="a-Icon icon-down-arrow" aria-hidden="true"></span>
-                </button>
-              </li>
-            </ul>
-          </div>
+          <div id="globalHeader"></div>
           <div class="t-Header-navBar--end"></div>
         </div>
-      </div>
       <div class="top">
         <img id="leftlogo" data-aos="fade-right" data-aos-duration="800" src="../assets/img/head-tnlogo.png"
           class="aos-init aos-animate">
@@ -446,8 +435,8 @@
   <script>
 
     const apiUrl = `${BASE_API_URL}/commonfunction`;
-    const mobnumber = sessionStorage.getItem('userMobileNumber') || "";
-
+    // const mobnumber = sessionStorage.getItem('userMobileNumber') || "";
+    
     function fetchAndPopulateDropdown({ payload, dropdownId, placeholder }) {
       $.ajax({
         url: apiUrl,

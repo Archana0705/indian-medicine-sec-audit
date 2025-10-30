@@ -324,7 +324,7 @@
   </form>
 
   <!-- session -->
-  <script src="../assets/js/session-guard.js"></script>
+  <!-- <script src="../assets/js/session-guard.js"></script> -->
   <script src="../assets/js/session.js"></script>
 
   <!-- jQuery -->
@@ -419,10 +419,24 @@ if (!loginTime || (now - loginTime) > 1800000) {
   <script>
     $(document).ready(function () {
       // Get values from sessionStorage
-      var userName = sessionStorage.getItem("userName");
-      var userDistrict = sessionStorage.getItem("userDistrict");
-      var userDesignation = sessionStorage.getItem("userDesignation");
-
+      // var userName = sessionStorage.getItem("userName");
+      // var userDistrict = sessionStorage.getItem("userDistrict");
+      // var userDesignation = sessionStorage.getItem("userDesignation");
+   const session = window.getDecryptedUserSession();
+      if (!session) {
+        alert("Session expired or unauthorized access. Please log in again.");
+        sessionStorage.clear();
+        window.location.replace("../index.html");
+        return;
+      }
+      const {
+        name: userName = "",
+        district: userDistrict = "",
+        designation: userDesignation = "",
+        system: userSystem = "",
+        institutionName: userInstitutionName = "",
+        mobnumber: userId = ""
+      } = session;
       // Check and bind values if they exist
       if (userName) {
         $('#P1_NAME_OF_THE_INDENTING_OFFICER_DISPLAY').text(userName);

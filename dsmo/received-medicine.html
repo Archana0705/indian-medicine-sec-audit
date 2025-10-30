@@ -17,11 +17,32 @@
     <link rel="stylesheet" href="../assets/css/custom.min.css" type="text/css">
     <link rel="stylesheet" href="../assets/css/aos.min.css" type="text/css"> 
     <link rel="stylesheet" href="../assets/css/theme.css" type="text/css">
+     <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/datatable/css/dataTables.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/vendor/datatable/dataTables.bootstrap5.min.css">
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
 
      <!-- session toast  -->
   <link rel="stylesheet" href="../assets/css/sessionToast.css" type="text/css">
     
-
+<style>
+    .modal-backdrop {
+      background-color: #00000040 !important;
+    }
+  </style>
+  <style type="text/css">
+    ul.headermenu {
+      padding: 10px 30px;
+      width: auto !important;
+      margin: 0;
+      white-space: nowrap;
+      left: -32px;
+      position: relative;
+    }
+  </style>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="Pragma" content="no-cache">
@@ -54,20 +75,7 @@
           </div>
           <div class="t-Header-navBar">
             <div class="t-Header-navBar--start"></div>
-            <div class="t-Header-navBar--center">
-              <ul class="t-NavigationBar " id="428237243222882931397">
-                <li class="t-NavigationBar-item ">
-                  <button class="t-Button t-Button--icon t-Button t-Button--header t-Button--navBar" type="button" id="L428237300758551931558" data-menu="menu_L428237300758551931558" title="" aria-haspopup="menu">
-                  <span class="t-Icon fa fa-user" aria-hidden="true"></span><span class="t-Button-label" id="sessionUserName"></span><span class="t-Button-badge"></span><span class="a-Icon icon-down-arrow" aria-hidden="true"></span>
-                  </button>
-                </li>
-                <li class="t-NavigationBar-item " id="logout">
-                  <button class="t-Button t-Button--icon t-Button t-Button--header t-Button--navBar" type="button">
-                  <span class="t-Icon fa fa-user"></span><span class="t-Button-label">Log Out</span><span class="t-Button-badge"></span><span class="a-Icon icon-down-arrow" aria-hidden="true"></span>
-                  </button>
-                </li>
-              </ul>
-            </div>
+         <div id="globalHeader"></div>
             <div class="t-Header-navBar--end"></div>
           </div>
         </div>
@@ -77,16 +85,13 @@
           <h3 data-aos="zoom-in" data-aos-duration="800" class="dept-name2 text-middle aos-init aos-animate">Department of Indian Medicine and Homoeopathy</h3>
           <img id="rightlogo" data-aos="fade-left" data-aos-duration="800" src="../assets/img/head-dept-logo.png" class="aos-init aos-animate">
         </div>
-        <div class="t-Header-nav">
-          <div class="t-Header-nav-list js-tabLike js-tabLike a-MenuBar a-MenuBar--overflow a-MenuBar--tabs" id="t_MenuNav" role="menubar">
-            <ul role="none">
-              <li role="none" id="t_MenuNav_0" class="a-MenuBar-item a-Menu--current"><a role="menuitem" class="a-MenuBar-label" aria-current="true" id="t_MenuNav_0i" href="../dsmo/home.html">Home</a></li>
-              <li role="none" id="t_MenuNav_1" class="a-MenuBar-item"><a role="menuitem" class="a-MenuBar-label" id="t_MenuNav_1i" href="../dsmo/received-medicine.html" tabindex="-1">Received Medicine Report</a></li>
-              <li role="none" id="t_MenuNav_2" class="a-MenuBar-item"><a role="menuitem" class="a-MenuBar-label" id="t_MenuNav_2i" href="../dsmo/medicine-details.html" tabindex="-1">Medicine Details</a></li>
-              <li role="none" id="t_MenuNav_3" class="a-MenuBar-item"><a role="menuitem" class="a-MenuBar-label" id="t_MenuNav_3i" href="../dsmo/download.html" tabindex="-1">Download despatched medicine</a></li>
-              <li role="none" id="t_MenuNav_4" class="a-MenuBar-item"><a role="menuitem" class="a-MenuBar-label" id="t_MenuNav_4i" href="../dsmo/view-indent.html" tabindex="-1">View Indent Details - DSMO</a></li>
-            </ul>
-          </div>
+         <div class="t-Header-nav">
+        <div class="t-Header-nav-list js-tabLike js-tabLike a-MenuBar a-MenuBar--overflow a-MenuBar--tabs"
+          id="t_MenuNav" role="menubar">
+          <ul id="nav-links">
+            <div id="navbar-container"></div>
+          </ul>
+        </div>
         </div>
       </header>
       <div class="t-Body">
@@ -207,14 +212,36 @@
     </script>
 
     <!-- session -->
-    <script src="../assets/js/session-guard.js"></script>
-    <script src="../assets/js/session.js"></script>
+  
+  <!-- jQuery -->
+  <script src="../assets/js/jquery.latest.min.js"></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- DataTables -->
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="../assets/js/widget.treeView.min.js"></script>
+  <script src="../assets/common.js"></script>
+  <script src="../assets/js/widget.interactiveReport.min.js"></script>
+  <script src="../assets/js/widget.iconList.min.js"></script>
+  <script src="../assets/js/widget.stickyTableHeader.min.js"></script>
+  <script src="../assets/js/widget.stickyWidget.min.js"></script>
+  <script src="../assets/js/item.Colorpicker.min.js"></script>
+  <script src="../assets/js/jetCommonBundle.min.js"></script>
+  <script src="../assets/js/chartBundle.min.js"></script>
+  <script src="../assets/js/sanitizeInput.js"></script>
+  <script src="../assets/js/toastUtil.js"></script>
+  <script type="module" src="../assets/js/dataTableUtil.js"></script>
+  <script src="../assets/js/crypto-js.min.js"></script>
+  <script src="../assets/js/theme42.min.js"></script>
+  <script src="../assets/js/global.js"></script>
+  <script src="../assets/js/encrypt_decrypt.js"></script>
+  <script src="../assets/js/singleFileUpload.js"></script>
     
-    <script src="../assets/js/jquery.latest.min.js"></script>
-    <script src="../assets/js/desktop_all.min.js"></script>
-    <script src="../assets/js/widget.stickyWidget.min.js"></script>
-    <script src="../assets/js/theme42.min.js"></script>
-    <script src="../assets/js/aos.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/globalHeader.js"></script>
+  <script src="../assets/js/apiConfig.js"></script>
+  <script src="../assets/js/session-guard.js"></script>
+  <script src="../assets/js/session.js"></script>
 
 
     <script type="text/javascript">
