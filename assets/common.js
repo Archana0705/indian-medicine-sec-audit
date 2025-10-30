@@ -26,8 +26,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 ],
                 commissioner: [
                     { name: 'Dashboard', href: '../commissioner/overall-dashboard.html' },
-                    { name: 'All Stocks', href: '../commissioner/all-stocks-details.html' },
-                    { name: 'Report', href: '../commissioner/overall-report.html' }
+                    {
+                        name: 'Overall Report for Commissioner',
+                        href: '#',
+                        children: [
+                            { name: 'Overall Dashboard Report for Commissioner', href: '../factory/medicine-details.html' },
+                            { name: 'All Stock details', href: '../factory/medicine-details-quarter.html' },
+                        ]
+                    },
+                    // { name: 'All Stocks', href: '../commissioner/all-stocks-details.html' },
+                    // { name: 'Report', href: '../commissioner/overall-report.html' }
                 ],
                 dim: [
                     { name: 'Home', href: '../dim/home.html' },
