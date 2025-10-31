@@ -399,7 +399,6 @@ if (!loginTime || (now - loginTime) > 1800000) {
       // var userDesignation = sessionStorage.getItem("userDesignation");
       const session = window.getDecryptedUserSession();
       if (!session) {
-        alert("Session expired or unauthorized access. Please log in again.");
         sessionStorage.clear();
         window.location.replace("../index.html");
         return;

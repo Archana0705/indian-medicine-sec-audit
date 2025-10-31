@@ -524,7 +524,6 @@
       // ================== SESSION EXTRACTION ==================
       const session = window.getDecryptedUserSession();
       if (!session) {
-        alert("Session expired or unauthorized access. Please log in again.");
         sessionStorage.clear();
         window.location.replace("../index.html");
         return;

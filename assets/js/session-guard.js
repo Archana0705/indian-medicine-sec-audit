@@ -31,7 +31,7 @@
     const session = getDecryptedUserSession();
 
     if (!session || !session.name || !session.role || isSessionExpired()) {
-      alert("Session expired or unauthorized access. Please log in again.");
+      ahowErrorToast("Session expired or unauthorized access. Please log in again.");
       redirectToLogin();
       return;
     }
