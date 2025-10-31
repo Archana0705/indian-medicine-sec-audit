@@ -326,8 +326,8 @@
   <script src="../assets/js/singleFileUpload.js"></script>
   <script src="../assets/js/globalHeader.js"></script>
   <script src="../assets/js/apiConfig.js"></script>
-  <script src="../assets/js/validateField.js"></script>
-<script src="../assets/js/session.js"></script>
+
+  <script src="../assets/js/session.js"></script>
 
 
   <script src="../assets/js/auth.js"></script>
@@ -335,7 +335,7 @@
   <script src="../assets/js/apiConfig.js"></script>
   <script src="../assets/js/session-guard.js"></script>
   <script src="../assets/js/session.js"></script>
-
+  <script src="../assets/js/role-guard.js"></script>
   <!--  <script>
   $(document).ready(function () {
     // Get values from localStorage
@@ -403,7 +403,7 @@ if (!loginTime || (now - loginTime) > 1800000) {
       // var userName = sessionStorage.getItem("userName");
       // var userDistrict = sessionStorage.getItem("userDistrict");
       // var userDesignation = sessionStorage.getItem("userDesignation");
-   const session = window.getDecryptedUserSession();
+      const session = window.getDecryptedUserSession();
       if (!session) {
         alert("Session expired or unauthorized access. Please log in again.");
         sessionStorage.clear();

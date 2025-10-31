@@ -515,18 +515,12 @@
   <script src="../assets/js/singleFileUpload.js"></script>
   <script src="../assets/js/globalHeader.js"></script>
   <script src="../assets/js/apiConfig.js"></script>
-  <script src="../assets/js/validateField.js"></script>
-
-  <script src="../assets/js/session.js"></script>
-
-
   <script src="../assets/js/auth.js"></script>
   <script src="../assets/js/globalHeader.js"></script>
   <script src="../assets/js/apiConfig.js"></script>
   <script src="../assets/js/session-guard.js"></script>
   <script src="../assets/js/session.js"></script>
-
-
+  <script src="../assets/js/role-guard.js"></script>
 
   <script>
     $(document).ready(function () {
@@ -541,6 +535,7 @@
         window.location.replace("../index.html");
         return;
       }
+
       const {
         name: userName = "",
         district: userDistrict = "",

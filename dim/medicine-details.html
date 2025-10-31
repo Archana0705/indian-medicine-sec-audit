@@ -120,29 +120,30 @@
             </li>
           </div>
         </div>
-         <div class="t-Header-navBar">
+        <div class="t-Header-navBar">
           <div class="t-Header-navBar--start"></div>
           <div id="globalHeader"></div>
           <div class="t-Header-navBar--end"></div>
         </div>
-      <div class="top">
-        <img id="leftlogo" data-aos="fade-right" data-aos-duration="800" src="../assets/img/head-tnlogo.png"
-          class="aos-init aos-animate">
-        <h1 data-aos="zoom-in" data-aos-duration="800" class="dept-name text-middle aos-init aos-animate">Medicine
-          Indent</h1>
-        <h3 data-aos="zoom-in" data-aos-duration="800" class="dept-name2 text-middle aos-init aos-animate">Department of
-          Indian Medicine and Homoeopathy</h3>
-        <img id="rightlogo" data-aos="fade-left" data-aos-duration="800" src="../assets/img/head-dept-logo.png"
-          class="aos-init aos-animate">
-      </div>
-      <div class="t-Header-nav">
-        <div class="t-Header-nav-list js-tabLike js-tabLike a-MenuBar a-MenuBar--overflow a-MenuBar--tabs"
-          id="t_MenuNav" role="menubar">
-          <ul id="nav-links">
-            <div id="navbar-container"></div>
-          </ul>
+        <div class="top">
+          <img id="leftlogo" data-aos="fade-right" data-aos-duration="800" src="../assets/img/head-tnlogo.png"
+            class="aos-init aos-animate">
+          <h1 data-aos="zoom-in" data-aos-duration="800" class="dept-name text-middle aos-init aos-animate">Medicine
+            Indent</h1>
+          <h3 data-aos="zoom-in" data-aos-duration="800" class="dept-name2 text-middle aos-init aos-animate">Department
+            of
+            Indian Medicine and Homoeopathy</h3>
+          <img id="rightlogo" data-aos="fade-left" data-aos-duration="800" src="../assets/img/head-dept-logo.png"
+            class="aos-init aos-animate">
         </div>
-      </div>
+        <div class="t-Header-nav">
+          <div class="t-Header-nav-list js-tabLike js-tabLike a-MenuBar a-MenuBar--overflow a-MenuBar--tabs"
+            id="t_MenuNav" role="menubar">
+            <ul id="nav-links">
+              <div id="navbar-container"></div>
+            </ul>
+          </div>
+        </div>
     </header>
     <div class="t-Body">
       <div class="t-Body-main">
@@ -409,7 +410,6 @@
   <script src="../assets/js/chartBundle.min.js"></script>
 
   <script src="../assets/js/toastUtil.js"></script>
-  <script src="../assets/js/validation.js"></script>
   <script src="../assets/js/dataTableUtil.js"></script>
   <script src="../assets/js/crypto-js.min.js"></script>
   <script src="../assets/js/theme42.min.js"></script>
@@ -419,6 +419,7 @@
   <script src="../assets/js/globalHeader.js"></script>
   <script src="../assets/js/apiConfig.js"></script>
   <script src="../assets/js/validation.js"></script>
+  <script src="../assets/js/role-guard.js"></script>
   <script>
     $(document).ready(function () {
       var userName = sessionStorage.getItem("userName") || "Guest";
@@ -429,7 +430,7 @@
 
     const apiUrl = `${BASE_API_URL}/commonfunction`;
     // const mobnumber = sessionStorage.getItem('userMobileNumber') || "";
-    
+
     function fetchAndPopulateDropdown({ payload, dropdownId, placeholder }) {
       $.ajax({
         url: apiUrl,

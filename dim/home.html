@@ -319,24 +319,25 @@
 <script src="../assets/js/encrypt_decrypt.js"></script>
 <script src="../assets/js/globalHeader.js"></script>
 <script src="../assets/js/apiConfig.js"></script>
+<script src="../assets/js/role-guard.js"></script>
 <script>
   $(document).ready(function () {
-   const session = window.getDecryptedUserSession();
-      if (!session) {
-        alert("Session expired or unauthorized access. Please log in again.");
-        sessionStorage.clear();
-        window.location.replace("../index.html");
-        return;
-      }
-      const {
-        name: userName = "",
-        district: userDistrict = "",
-        designation: userDesignation = "",
-        system: userSystem = "",
-        institutionName: userInstitutionName = "",
-        mobnumber: userId = ""
-      } = session;
-        $('#username .t-Button-label').text(userName);
+    const session = window.getDecryptedUserSession();
+    if (!session) {
+      alert("Session expired or unauthorized access. Please log in again.");
+      sessionStorage.clear();
+      window.location.replace("../index.html");
+      return;
+    }
+    const {
+      name: userName = "",
+      district: userDistrict = "",
+      designation: userDesignation = "",
+      system: userSystem = "",
+      institutionName: userInstitutionName = "",
+      mobnumber: userId = ""
+    } = session;
+    $('#username .t-Button-label').text(userName);
     $('#P1_NAME_OF_THE_INDENTING_OFFICER_DISPLAY').text(userName);
     $('#P1_NAME_OF_THE_INDENTING_OFFICER').val(userName);
     $('#P1_DESIGNATION_OF_OFFICER').val(userDesignation);
