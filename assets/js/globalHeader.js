@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             const session = window.getDecryptedUserSession();
             if (!session) {
                 console.warn('⚠️ No user session found or decryption failed.');
-                alert('Session expired or unauthorized access. Please log in again.');
+                showErrorToast('Session expired or unauthorized access. Please log in again.');
                 setTimeout(() => window.location.replace('../index.html'), 2000);
                 return;
             }

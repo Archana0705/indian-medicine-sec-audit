@@ -324,18 +324,30 @@
 
   <script>
     let dataTableRef;
-
+    let userSession = null;
     $(document).ready(function () {
       let uploadFile = null;
       let uploadPayload = null;
       const apiUrl = `${BASE_API_URL}/commonfunction`;
       // const userId = sessionStorage.getItem('userId');
       // const secretKey = 'V7gN4dY8pT2xB3kRz';
-      const district = sessionStorage.getItem('userDistrict');
-      const designation = sessionStorage.getItem('userDesignation') || '';
+      userSession = window.getDecryptedUserSession();
+      if (!userSession) {
+        sessionStorage.clear();
+        window.location.replace("../index.html");
+        return;
+      }
 
-      const username = sessionStorage.getItem('userName');
-      const mobnumber = sessionStorage.getItem('userMobileNumber') || '9941256207';
+      console.log("Decrypted User Session:", userSession);
+
+      const {
+        name: userName = "",
+        district: userDistrict = "",
+        designation: userDesignation = "",
+        system: userSystem = "",
+        institutionName: userInstitutionName = "",
+        mobnumber: mobnumber = ""
+      } = userSession;
 
       function fetchTableData() {
         debugger

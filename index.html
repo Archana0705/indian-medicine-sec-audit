@@ -494,8 +494,6 @@
         try {
           // 🔐 Create encrypted session
           await initializeUserSession(mobnumber);
-          // sessionStorage.setItem('userMobileNumber', mobnumber);
-          // sessionStorage.setItem('loginTime', new Date().getTime());
 
           // 🔓 Get decrypted session for navigation logic
           const session = getDecryptedUserSession();

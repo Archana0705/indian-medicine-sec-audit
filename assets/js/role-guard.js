@@ -11,7 +11,7 @@
     };
 
     function redirectToUnauthorized() {
-        alert("Unauthorized access. Redirecting to login.");
+        showErrorToast("Unauthorized access. Redirecting to login.");
         sessionStorage.clear();
         window.location.replace("../index.html");
     }

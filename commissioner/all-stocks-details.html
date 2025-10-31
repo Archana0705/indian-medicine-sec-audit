@@ -535,9 +535,27 @@
   <script src="../assets/js/validation.js"></script>
   <script src="../assets/js/role-guard.js"></script>
   <script>
+    let userSession = null;
     const apiUrl =
       `${BASE_API_URL}/commonfunction`;
-    const mobnumber = sessionStorage.getItem("userMobileNumber") || "";
+    userSession = window.getDecryptedUserSession();
+    if (!userSession) {
+      sessionStorage.clear();
+      window.location.replace("../index.html");
+      return;
+    }
+
+    console.log("Decrypted User Session:", userSession);
+
+    const {
+      name: userName = "",
+      district: userDistrict = "",
+      designation: userDesignation = "",
+      system: userSystem = "",
+      institutionName: userInstitutionName = "",
+      mobnumber: mobnumber = ""
+    } = userSession;
+
     console.log(mobnumber);
 
     function fetchAndPopulateDropdown({ payload, dropdownId, placeholder }) {

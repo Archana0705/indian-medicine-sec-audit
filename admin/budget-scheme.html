@@ -903,10 +903,23 @@ DIMDEVUSER</textarea>
 
   <script>
     $(document).ready(function () {
-      var userName = sessionStorage.getItem("userName") || "Guest";
-      var userDesignation = sessionStorage.getItem("userDesignation") || "N/A";
-      var userDistrict = sessionStorage.getItem("userDistrict") || "N/A";
-      var userNo = sessionStorage.getItem("userMobileNumber") || "0";
+      const session = window.getDecryptedUserSession();
+      if (!session) {
+        sessionStorage.clear();
+        window.location.replace("../index.html");
+        return;
+      }
+
+      console.log("Decrypted User Session:", session);
+
+      const {
+        name: userName = "",
+        district: userDistrict = "",
+        designation: userDesignation = "",
+        system: userSystem = "",
+        institutionName: userInstitutionName = "",
+        mobnumber: mobnumber = ""
+      } = session;
       $("#username .t-Button-label").text(userName);
       $("#P1_NAME_OF_THE_INDENTING_OFFICER_DISPLAY").text(userName);
       $("#P1_NAME_OF_THE_INDENTING_OFFICER").val(userName);
@@ -1003,6 +1016,15 @@ DIMDEVUSER</textarea>
     fetchTableData();
 
     function getPayloadBudgetSchemeInsert() {
+      const session = window.getDecryptedUserSession();
+      const {
+        name: userName = "",
+        district: userDistrict = "",
+        designation: userDesignation = "",
+        system: userSystem = "",
+        institutionName: userInstitutionName = "",
+        mobnumber: mobnumber = ""
+      } = session;
       return {
         action: "function_call",
         function_name: "im_ins_allotted_budget_scheme_fn",
@@ -1015,7 +1037,7 @@ DIMDEVUSER</textarea>
           p_scheme_name: $("#P58_SCHEME_NAME").val() || null,
           p_scheme_values: parseFloat($("#P58_SCHEME_VALUES").val()) || 0,
           p_status: $("#P58_STATUS").val() || null,
-          p_created_by: sessionStorage.getItem("userMobileNumber") || null,
+          p_created_by: mobnumber || null,
           p_created_date: new Date().toISOString(),
         },
       };

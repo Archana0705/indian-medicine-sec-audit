@@ -473,12 +473,25 @@
   <script src="../assets/js/role-guard.js"></script>
 
   <script>
+    let userSession = null;
     $(document).ready(function () {
-      var userName = sessionStorage.getItem("userName") || "Guest";
-      var userDesignation = sessionStorage.getItem("userDesignation") || "N/A";
-      var userDistrict = sessionStorage.getItem("userDistrict") || "N/A";
-      var userNo = sessionStorage.getItem("userMobileNumber") || "0";
+      userSession = window.getDecryptedUserSession();
+      if (!userSession) {
+        sessionStorage.clear();
+        window.location.replace("../index.html");
+        return;
+      }
 
+      console.log("Decrypted User Session:", userSession);
+
+      const {
+        name: userName = "",
+        district: userDistrict = "",
+        designation: userDesignation = "",
+        system: userSystem = "",
+        institutionName: userInstitutionName = "",
+        mobnumber: mobnumber = ""
+      } = userSession;
       $('#username .t-Button-label').text(userName);
       $('#P1_NAME_OF_THE_INDENTING_OFFICER_DISPLAY').text(userName);
       $('#P1_NAME_OF_THE_INDENTING_OFFICER').val(userName);
@@ -579,7 +592,7 @@
         function_name: "im_ins_im_scheme_details_fn",
         params: {
           p_scheme_name: schemeName,
-          p_created_by: sessionStorage.getItem("userMobileNumber") || null,
+          p_created_by: userSession?.mobnumber || null,
           p_created_date: new Date().toISOString()
         }
       };
@@ -628,7 +641,7 @@
         params: {
           p_sno: selectedSchemeId,
           p_scheme_name: $("#P52_SCHEME_NAME_EDIT").val() || null,
-          p_updated_by: sessionStorage.getItem("userMobileNumber") || null,
+          p_updated_by: userSession?.mobnumber || null,
           p_updated_date: new Date().toISOString().slice(0, 19).replace("T", " ")
 
         }

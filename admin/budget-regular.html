@@ -627,10 +627,7 @@
   <script src="../assets/js/role-guard.js"></script>
   <script>
     $(document).ready(function () {
-      // var userName = sessionStorage.getItem("userName") || "Guest";
-      // var userNo = sessionStorage.getItem("userMobileNumber") || "0";
-      // var userDesignation = sessionStorage.getItem("userDesignation") || "N/A";
-      // var userDistrict = sessionStorage.getItem("userDistrict") || "N/A";
+
       const session = window.getDecryptedUserSession();
       if (!session) {
         sessionStorage.clear();
@@ -646,7 +643,7 @@
         designation: userDesignation = "",
         system: userSystem = "",
         institutionName: userInstitutionName = "",
-        mobnumber: userId = ""
+        mobnumber: mobnumber = ""
       } = session;
       $("#username .t-Button-label").text(userName);
       $("#P1_NAME_OF_THE_INDENTING_OFFICER_DISPLAY").text(userName);
@@ -762,7 +759,16 @@
       if (!isValid) {
         return;
       }
+      const session = window.getDecryptedUserSession();
 
+      const {
+        name: userName = "",
+        district: userDistrict = "",
+        designation: userDesignation = "",
+        system: userSystem = "",
+        institutionName: userInstitutionName = "",
+        mobnumber: mobnumber = ""
+      } = session;
       // Construct payload
       const payload = {
         action: "function_call",
@@ -773,7 +779,7 @@
           p_institution_type: type,
           p_system: system,
           p_regular: parseFloat(regular),
-          p_created_by: sessionStorage.getItem("userMobileNumber") || null
+          p_created_by: mobnumber || null
         }
       };
 
@@ -879,8 +885,17 @@
         alert("No changes detected");
         return;
       }
+      const session = window.getDecryptedUserSession();
 
-      // === Payload & AJAX ===
+      const {
+        name: userName = "",
+        district: userDistrict = "",
+        designation: userDesignation = "",
+        system: userSystem = "",
+        institutionName: userInstitutionName = "",
+        mobnumber: mobnumber = ""
+      } = session;
+
       const payload = {
         action: "function_call",
         function_name: "im_update_im_allotted_budget_fn",
@@ -891,7 +906,7 @@
           p_institution_type: type,
           p_system: system,
           p_regular: parseFloat(regular),
-          p_updated_by: sessionStorage.getItem("userMobileNumber") || null,
+          p_updated_by: mobnumber || null,
           p_updated_date: new Date().toISOString().slice(0, 19).replace("T", " "),
         }
       };

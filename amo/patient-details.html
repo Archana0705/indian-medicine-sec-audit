@@ -431,16 +431,29 @@
 
   <script>
     let dataTableRef;
-
+    let userSession = null;
     $(document).ready(function () {
       let uploadFile = null;
       let uploadPayload = null;
       const apiUrl = `${BASE_API_URL}/commonfunction`;
-      const mobnumber = sessionStorage.getItem('userMobileNumber') || '9941256207';
+      userSession = window.getDecryptedUserSession();
+      if (!userSession) {
+        sessionStorage.clear();
+        window.location.replace("../index.html");
+        return;
+      }
 
-      const district = sessionStorage.getItem('userDistrict');
-      const nameOfTheInstitution = sessionStorage.getItem('userInstitutionName');
-      const system = sessionStorage.getItem('userSystem');
+      console.log("Decrypted User Session:", userSession);
+
+      const {
+        name: userName = "",
+        district: userDistrict = "",
+        designation: userDesignation = "",
+        system: userSystem = "",
+        institutionName: userInstitutionName = "",
+        mobnumber: mobnumber = ""
+      } = userSession;
+
       function fetchTableData() {
         const fromDateInput = document.getElementById("P38_FROM_DATE");
         fromDateInput.max = new Date().toISOString().split("T")[0];

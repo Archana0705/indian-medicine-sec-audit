@@ -1042,12 +1042,25 @@
       <script src="/i/libraries/apex/minified/chartBundle.min.js?v=23.1.0"></script> -->
 
   <script>
+    let userSession = null;
     $(document).ready(function () {
-      var userName = sessionStorage.getItem("userName") || "Guest";
-      var userDesignation = sessionStorage.getItem("userDesignation") || "N/A";
-      var userDistrict = sessionStorage.getItem("userDistrict") || "N/A";
-      var userNo = sessionStorage.getItem("userMobileNumber") || null;
+      userSession = window.getDecryptedUserSession();
+      if (!userSession) {
+        sessionStorage.clear();
+        window.location.replace("../index.html");
+        return;
+      }
 
+      console.log("Decrypted User Session:", userSession);
+
+      const {
+        name: userName = "",
+        district: userDistrict = "",
+        designation: userDesignation = "",
+        system: userSystem = "",
+        institutionName: userInstitutionName = "",
+        mobnumber: mobnumber = ""
+      } = userSession;
       $("#username .t-Button-label").text(userName);
       $("#P1_NAME_OF_THE_INDENTING_OFFICER_DISPLAY").text(userName);
       $("#P1_NAME_OF_THE_INDENTING_OFFICER").val(userName);
@@ -1156,7 +1169,7 @@
             $("#P42_DESIGNATION_OF_OFFICER").val() || null,
           p_aadhaar_linked_mobile_no:
             $("#P42_AADHAAR_LINKED_MOBILE_NO").val() || null,
-          p_created_by: sessionStorage.getItem("userMobileNumber") || null, // Replace with dynamic value if available
+          p_created_by: userSession?.mobnumber || null, // Replace with dynamic value if available
           p_created_date: new Date().toISOString(),
         },
       };
@@ -1236,7 +1249,7 @@
           p_aadhaar_linked_mobile_no: $(
             "#P42_AADHAAR_LINKED_MOBILE_NO"
           ).val(),
-          p_created_by: sessionStorage.getItem("userMobileNumber") || null,
+          p_created_by: userSession?.mobnumber || null,
           p_created_date: new Date().toISOString(),
         },
       };
@@ -1462,7 +1475,7 @@
           p_designation_of_officer: currentFormData.p_designation_of_officer,
           p_aadhaar_linked_mobile_no:
             currentFormData.p_aadhaar_linked_mobile_no,
-          p_updated_by: sessionStorage.getItem("userMobileNumber") || null,
+          p_updated_by: userSession?.mobnumber || null,
           p_updated_date: new Date()
             .toISOString()
             .slice(0, 19)
