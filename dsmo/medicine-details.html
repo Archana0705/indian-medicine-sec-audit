@@ -74,13 +74,7 @@
             <li><a data-aos="fade-up" data-aos-delay="500" class="aos-init aos-animate"><span class="d-inline-block"
                   tabindex="0" data-toggle="tooltip" title="Dark Mode"><i class="t-Icon fa fa-moon-o"
                     id="darkmode"></i></span></a></li>
-            <li><a data-aos="fade-up" data-aos-delay="600" class="form-check form-switch aos-init aos-animate"><label
-                  class="form-check-label" for="screenReaderSwitch">
-                  <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Screen Reader">
-                    <i id="sound" class="t-Icon fa fa-volume-up"></i></span></label><input class="form-check-input"
-                  type="checkbox" role="switch" id="screenReaderSwitch"
-                  onclick="readText(document.getElementsByTagName('body')[0])"></a>
-            </li>
+
           </div>
         </div>
         <div class="t-Header-navBar">
@@ -342,7 +336,7 @@
     </div>
     <div class="t-Body-inlineDialogs" id="t_Body_inlineDialogs"></div>
 
-   
+
 
     <!-- jQuery -->
     <script src="../assets/js/jquery.latest.min.js"></script>
@@ -369,14 +363,14 @@
     <script src="../assets/js/singleFileUpload.js"></script>
     <script src="../assets/js/globalHeader.js"></script>
     <script src="../assets/js/apiConfig.js"></script>
- <!-- session -->
+    <!-- session -->
     <script src="../assets/js/session-guard.js"></script>
     <script src="../assets/js/session.js"></script>
 
     <script>
       const apiUrl = `${BASE_API_URL}/commonfunction`; // ✅ Declare globally
       // const mobile = sessionStorage.getItem("userMobileNumber");
-    const session = window.getDecryptedUserSession();
+      const session = window.getDecryptedUserSession();
       if (!session) {
         alert("Session expired or unauthorized access. Please log in again.");
         sessionStorage.clear();
@@ -409,7 +403,7 @@
             dataType: 'json',
             success(response) {
               const decrypted = decryptData(response.data);
-              console.log(`Decrypted Data for ${payload.function_name}:`, decrypted);
+
 
               const $dropdown = $(`#${dropdownId}`);
               $dropdown.empty().append(`<option value="">${placeholder}</option>`);
@@ -452,7 +446,7 @@
             dataType: 'json',
             success(response) {
               const decrypted = decryptData(response.data);
-              console.log(`Decrypted Data for ${payload.function_name}:`, decrypted);
+
 
               const $dropdown = $(`#${dropdownId}`);
               $dropdown.empty().append(`<option value="">${placeholder}</option>`);

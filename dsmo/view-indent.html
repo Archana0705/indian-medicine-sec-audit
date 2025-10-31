@@ -75,13 +75,7 @@
             <li><a data-aos="fade-up" data-aos-delay="500" class="aos-init aos-animate"><span class="d-inline-block"
                   tabindex="0" data-toggle="tooltip" title="Dark Mode"><i class="t-Icon fa fa-moon-o"
                     id="darkmode"></i></span></a></li>
-            <li><a data-aos="fade-up" data-aos-delay="600" class="form-check form-switch aos-init aos-animate"><label
-                  class="form-check-label" for="screenReaderSwitch">
-                  <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Screen Reader">
-                    <i id="sound" class="t-Icon fa fa-volume-up"></i></span></label><input class="form-check-input"
-                  type="checkbox" role="switch" id="screenReaderSwitch"
-                  onclick="readText(document.getElementsByTagName('body')[0])"></a>
-            </li>
+
           </div>
         </div>
         <div class="t-Header-navBar">
@@ -111,7 +105,7 @@
     </header>
     <div class="t-Body">
       <div class="t-Body-main">
-        <div class="t-Body-title" id="t_Body_title" ></div>
+        <div class="t-Body-title" id="t_Body_title"></div>
         <div class="t-Body-content" id="t_Body_content">
           <div id="t_Body_content_offset"></div>
           <main id="main" class="t-Body-mainContent">
@@ -494,21 +488,21 @@
 
     const apiUrl = `${BASE_API_URL}/commonfunction`; // ✅ Declare globally
     // const mobnumber = sessionStorage.getItem("usermobnumberNumber");
-     const session = window.getDecryptedUserSession();
-      if (!session) {
-        alert("Session expired or unauthorized access. Please log in again.");
-        sessionStorage.clear();
-        window.location.replace("../index.html");
-        // return;
-      }
-      const {
-        name: userName = "",
-        district: userDistrict = "",
-        designation: userDesignation = "",
-        system: userSystem = "",
-        institutionName: userInstitutionName = "",
-        mobnumber: mobnumber = ""
-      } = session;
+    const session = window.getDecryptedUserSession();
+    if (!session) {
+      alert("Session expired or unauthorized access. Please log in again.");
+      sessionStorage.clear();
+      window.location.replace("../index.html");
+      // return;
+    }
+    const {
+      name: userName = "",
+      district: userDistrict = "",
+      designation: userDesignation = "",
+      system: userSystem = "",
+      institutionName: userInstitutionName = "",
+      mobnumber: mobnumber = ""
+    } = session;
 
     $(document).ready(function () {
 
@@ -529,7 +523,7 @@
           dataType: 'json',
           success(response) {
             const decrypted = decryptData(response.data);
-            console.log(`Decrypted Data for ${payload.function_name}:`, decrypted);
+
 
             const $dropdown = $(`#${dropdownId}`);
             $dropdown.empty().append(`<option value="">${placeholder}</option>`);
