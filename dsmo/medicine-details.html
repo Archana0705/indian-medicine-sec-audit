@@ -85,24 +85,7 @@
         </div>
         <div class="t-Header-navBar">
           <div class="t-Header-navBar--start"></div>
-          <div class="t-Header-navBar--center">
-            <ul class="t-NavigationBar " id="428237243222882931397">
-              <li class="t-NavigationBar-item ">
-                <button class="t-Button t-Button--icon t-Button t-Button--header t-Button--navBar" type="button"
-                  id="L428237300758551931558" data-menu="menu_L428237300758551931558" title="" aria-haspopup="menu">
-                  <span class="t-Icon fa fa-user" aria-hidden="true"></span><span class="t-Button-label"
-                    id="sessionUserName"></span><span class="t-Button-badge"></span><span class="a-Icon icon-down-arrow"
-                    aria-hidden="true"></span>
-                </button>
-              </li>
-              <li class="t-NavigationBar-item " id="logout">
-                <button class="t-Button t-Button--icon t-Button t-Button--header t-Button--navBar" type="button">
-                  <span class="t-Icon fa fa-user"></span><span class="t-Button-label">Log Out</span><span
-                    class="t-Button-badge"></span><span class="a-Icon icon-down-arrow" aria-hidden="true"></span>
-                </button>
-              </li>
-            </ul>
-          </div>
+          <div id="globalHeader"></div>
           <div class="t-Header-navBar--end"></div>
         </div>
       </div>
@@ -119,17 +102,8 @@
       <div class="t-Header-nav">
         <div class="t-Header-nav-list js-tabLike js-tabLike a-MenuBar a-MenuBar--overflow a-MenuBar--tabs"
           id="t_MenuNav" role="menubar">
-          <ul role="none">
-            <li role="none" id="t_MenuNav_0" class="a-MenuBar-item a-Menu--current"><a role="menuitem"
-                class="a-MenuBar-label" aria-current="true" id="t_MenuNav_0i" href="../dsmo/home.html">Home</a></li>
-            <li role="none" id="t_MenuNav_1" class="a-MenuBar-item"><a role="menuitem" class="a-MenuBar-label"
-                id="t_MenuNav_1i" href="../dsmo/received-medicine.html" tabindex="-1">Received Medicine Report</a></li>
-            <li role="none" id="t_MenuNav_2" class="a-MenuBar-item"><a role="menuitem" class="a-MenuBar-label"
-                id="t_MenuNav_2i" href="../dsmo/medicine-details.html" tabindex="-1">Medicine Details</a></li>
-            <li role="none" id="t_MenuNav_3" class="a-MenuBar-item"><a role="menuitem" class="a-MenuBar-label"
-                id="t_MenuNav_3i" href="../dsmo/download.html" tabindex="-1">Download despatched medicine</a></li>
-            <li role="none" id="t_MenuNav_4" class="a-MenuBar-item"><a role="menuitem" class="a-MenuBar-label"
-                id="t_MenuNav_4i" href="../dsmo/view-indent.html" tabindex="-1">View Indent Details - DSMO</a></li>
+          <ul id="nav-links">
+            <div id="navbar-container"></div>
           </ul>
         </div>
       </div>
@@ -368,9 +342,7 @@
     </div>
     <div class="t-Body-inlineDialogs" id="t_Body_inlineDialogs"></div>
 
-    <!-- session -->
-    <script src="../assets/js/session-guard.js"></script>
-    <script src="../assets/js/session.js"></script>
+   
 
     <!-- jQuery -->
     <script src="../assets/js/jquery.latest.min.js"></script>
@@ -378,7 +350,7 @@
 
     <!-- DataTables -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="../assets/js/widget.treeView.min.js"></script>
+    <!-- <script src="../assets/js/widget.treeView.min.js"></script> -->
     <script src="../assets/common.js"></script>
     <script src="../assets/js/widget.interactiveReport.min.js"></script>
     <script src="../assets/js/widget.iconList.min.js"></script>
@@ -397,12 +369,28 @@
     <script src="../assets/js/singleFileUpload.js"></script>
     <script src="../assets/js/globalHeader.js"></script>
     <script src="../assets/js/apiConfig.js"></script>
-
+ <!-- session -->
+    <script src="../assets/js/session-guard.js"></script>
+    <script src="../assets/js/session.js"></script>
 
     <script>
       const apiUrl = `${BASE_API_URL}/commonfunction`; // ✅ Declare globally
-      const mobile = sessionStorage.getItem("userMobileNumber");
-
+      // const mobile = sessionStorage.getItem("userMobileNumber");
+    const session = window.getDecryptedUserSession();
+      if (!session) {
+        alert("Session expired or unauthorized access. Please log in again.");
+        sessionStorage.clear();
+        window.location.replace("../index.html");
+        // return;
+      }
+      const {
+        name: userName = "",
+        district: userDistrict = "",
+        designation: userDesignation = "",
+        system: userSystem = "",
+        institutionName: userInstitutionName = "",
+        mobnumber: mobnumber = ""
+      } = session;
       $(document).ready(function () {
 
         // District
@@ -442,7 +430,7 @@
           payload: {
             action: "function_call",
             function_name: "im_get_district_list_fn",
-            params: { mobnumber: mobile }
+            params: { mobnumber: mobnumber }
           },
           dropdownId: "P43_DISTRICT",
           placeholder: "--Select District--"
