@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         href: '#',
                         children: [
                             { name: 'Overall Dashboard Report for Commissioner', href: '../commissioner/overall-dashboard.html' },
-                            { name: 'All Stock details', href: '../factory/medicine-details-quarter.html' },
+                            { name: 'All Stock details', href: '../factory/all-stocks-details.html' },
                         ]
                     },
                     // { name: 'All Stocks', href: '../commissioner/all-stocks-details.html' },
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 dsmo: [
                     { name: 'Home', href: '../dsmo/home.html' },
                     { name: 'Received Medicine', href: '../dsmo/received-medicine.html' },
-                    { name: 'Medicine Details', href: '../dsmo/medicine-details.html'},
+                    { name: 'Medicine Details', href: '../dsmo/medicine-details.html' },
                     { name: 'Download despatched medicine', href: '../dsmo/download.html' },
                     { name: 'View Indent Details - DSMO', href: '../dsmo/view-indent.html' },
 
